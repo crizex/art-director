@@ -150,6 +150,10 @@ Nothing leaves your machine through this skill.
 Because "the top is great, below it feels AI" is a better instruction than any summary of it.
 Paraphrasing loses exactly the nuance that makes taste taste.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) or the [releases](https://github.com/crizex/art-director/releases).
+
 ## License
 
 MIT

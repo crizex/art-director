@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "art-director",
+  "description": "A personal art director for Claude Code. Real research, real choices, and a memory for your taste.",
+  "owner": {
+    "name": "crizex",
+    "url": "https://github.com/crizex"
+  },
+  "plugins": [
+    {
+      "name": "art-director",
+      "description": "Asks up front, rotates inspiration, shows directions as images, builds without interruptions, remembers your taste verbatim.",
+      "source": "./",
+      "category": "design"
+    }
+  ]
+}

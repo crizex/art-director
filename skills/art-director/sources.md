@@ -62,7 +62,9 @@ Add your own in `~/.claude/art-director/sources.md`.
   premium wellness and audio brands than from other habit trackers.
 - A **motif** from the product name or the scene of use gives a direction a spine
   (a filing cabinet for a compliance tool, a darkroom for a photo app).
-  Keep the motif on the marketing site. Inside the tool itself, sober usually wins.
+  Keep the motif on the marketing site. Inside the tool itself, sober usually wins: tools built around
+  a metaphor from the scene of use (a signal box, flight strips, a switchboard) were rejected outright,
+  while the same product in a calm modern dark look with one warm light was approved.
 - Example neighbour lists that worked: for a compliance
   tool, harvey.ai, legora.com, mercury.com, vanta.com, attio.com, linear.app; for a privacy photo app,
   halide.cam, darkroom.co, mullvad.net, teenage.engineering; for a developer tool, warp.dev, zed.dev,

@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "art-director",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "description": "Asks up front, rotates inspiration, shows directions as images, builds without interruptions, remembers your taste verbatim.",
       "source": "./",
       "category": "design"

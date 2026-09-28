@@ -65,6 +65,9 @@ The answers become the **brief in three sentences**, shown together with the dir
 3. Galleries alone produce gallery averages. Also look at **real products next to the category**:
    for a meditation app, look at premium audio and journaling brands; for a compliance tool, at banking
    and legal software. Then look for a **motif** in the product name or the scene where it is used.
+   Motifs belong on websites and brand moments. Tools and apps the user works in every day get their
+   character from light, type, color and motion instead; a metaphor dressed over a work tool reads as
+   playful or gimmicky.
 4. On each source, search for **the same kind of product or screen**. Do not skim the front page.
    JavaScript-heavy galleries need a real browser (Playwright or similar). Save screenshots to a scratch folder.
 5. Add matching images from `references/`. The user's own finds outweigh any gallery.
@@ -78,7 +81,15 @@ screen, screenshotted, or rendered side by side. For each direction:
 
 - one sentence on what you understood,
 - where the inspiration came from (source and the concrete find, linked),
-- fonts and the 3 main colors.
+- fonts and the 3 main colors,
+- its **floor plan** in one line (where navigation, content and actions sit).
+
+A motif alone is not a direction. Header, tabs, table and cards with a motif painted on still read as
+"generic AI". At least one direction needs a floor plan that differs from the default layout, and each
+floor plan must match the sketch it came from.
+
+If `taste.md` has a "Patterns" section, let one direction follow it and at least one deliberately
+break it, so a known preference does not become the next monoculture.
 
 Add the three-sentence brief from step 1. The user picks, mixing is welcome
 ("colors from A, layout from B"). **No production code before the pick.**
@@ -87,6 +98,15 @@ Add the three-sentence brief from step 1. The user picks, mixing is welcome
 
 After the pick, no more questions. When something is unclear, decide in the spirit of the chosen
 direction and write it down. Finish with a short list: **"Assumptions I made"**.
+
+Keep the floor plan of the chosen sketch. The usual drift during a full build is back to the default
+layout (top bar, text tabs, a title, table sections) with the direction's motif left as decoration.
+Compare the first full screen with the sketch before building the rest.
+
+**Illustrations, mascots, logos with a figure:** use an image generation model if one is available.
+Hand-drawn SVG figures rarely hold up. Show 3 to 6 generated concepts, then refine the chosen one at
+high resolution. Check that the scene makes sense: objects in the right place, and real-world details
+(devices, brands, hands) right.
 
 Standing rules (extend them in the user's `taste.md`):
 - small text on dark backgrounds at roughly 6:1 contrast or better, measured, never eyeballed,
@@ -106,14 +126,24 @@ Standing rules (extend them in the user's `taste.md`):
 
 ## 6. Learn
 
-- `log.md`: one row (date, project, kind, sources, chosen direction and the rejected ones).
+- `log.md`: one row (date, project, kind, sources, chosen direction and the rejected ones,
+  rounds until the user approved, which checks from step 5 ran). Update the rounds count when a
+  later round follows. It shows whether first rounds are getting better.
 - When the user praises or criticizes the result, write their words **verbatim** into `taste.md`
   under "Liked" or "Disliked", with date and a link to the draft. Add a "so what" in brackets when
   the lesson is not obvious from the quote. Never put your own guesses in `taste.md`.
 - A rule the user states ("never X", "always Y") goes under "Standing rules".
+- Once "Liked" has 5 or more rows, keep a short **"Patterns"** section in `taste.md`: what the liked
+  results share (background, accent, type, motion), each point backed by the rows it comes from.
+  Mark it as derived. It is the only place where your own reading goes, and it is revised whenever
+  the evidence changes.
 
 ## Autonomous runs
 
 When nobody is there to answer (scheduled jobs, background agents, overnight runs): ask nothing.
-Still do step 2, pick one direction yourself, and name your reasoning plus the two rejected
-alternatives in the final report, so the user can steer afterwards.
+Still do step 2, then **stop at step 3**: sketch 2 to 3 directions, say which one you would pick and
+why, and leave the full build for after the user's pick. A full build on a direction the user then
+rejects costs far more than one short answer.
+
+Only if the task says to finish without a pick: build your favorite, and name your reasoning plus
+the two rejected alternatives in the final report, so the user can steer afterwards.

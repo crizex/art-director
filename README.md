@@ -36,14 +36,15 @@ and learn from the client's reaction.
 ## How it works
 
 ```mermaid
-flowchart LR
-    A[Intake<br><sub>all questions up front</sub>] --> B[Research<br><sub>rotating sources</sub>]
-    B --> C[Directions<br><sub>2 to 3, as images</sub>]
-    C --> D{You pick<br><sub>or mix</sub>}
-    D --> E[Build<br><sub>no interruptions</sub>]
-    E --> F[Verify<br><sub>critique, a11y, phone</sub>]
-    F --> G[Learn<br><sub>your words, verbatim</sub>]
-    G -.next project.-> A
+%%{init: {"flowchart": {"padding": 20}}}%%
+flowchart TB
+    A["Intake<br>all questions up front"] --> B["Research<br>rotating sources"]
+    B --> C["Directions<br>2 to 3, as images"]
+    C --> D{"You pick<br>or mix"}
+    D --> E["Build<br>no interruptions"]
+    E --> F["Verify<br>critique, a11y, phone"]
+    F --> G["Learn<br>your words, verbatim"]
+    G -. next project .-> A
 ```
 
 | Step | What happens | Why it matters |

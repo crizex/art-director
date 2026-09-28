@@ -2,6 +2,11 @@
 
 Every release is also published on the [releases page](https://github.com/crizex/art-director/releases).
 
+## 1.1.2
+
+- README: the workflow diagram is readable on GitHub again. It runs top to bottom now, and the step
+  descriptions no longer get cut off inside their boxes.
+
 ## 1.1.1
 
 - README: short demo animation of a brief, three directions, a pick and the taste.md entry.

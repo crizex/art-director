@@ -39,6 +39,10 @@ When the user sends an image with "remember this", "reference", "like this" or s
 copy it to `references/YYYY-MM-DD-keyword.ext`, add a row to `references/index.md`
 (file, the user's comment verbatim, your guess at what makes it good). If it is an animation,
 the still frame loses the motion: ask once what moves, and note the answer with its proper term.
+When the user sends links to animated pages, a screenshot is not enough. Record the page loading and
+scrolling slowly (for example Playwright's `recordVideo`), keep the video, and turn it into a contact
+sheet of 12 to 16 frames (for example `ffmpeg -vf "fps=16/<duration>,tile=4x4"`) that you actually look at.
+Note what moves, when, and with which technique (GSAP, Lenis, Three.js, Spline, Framer, canvas).
 
 ## 1. Intake: every question at once
 

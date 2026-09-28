@@ -2,6 +2,11 @@
 
 Every release is also published on the [releases page](https://github.com/crizex/art-director/releases).
 
+## 1.2.1
+
+- References from links to animated pages are recorded as video and a contact sheet of frames,
+  not a single screenshot, and the notes say what moves and with which technique.
+
 ## 1.2.0
 
 Lessons from the first day of real use, where first rounds were often rejected as "too AI" or "too basic".

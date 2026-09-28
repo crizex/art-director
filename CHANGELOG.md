@@ -2,6 +2,11 @@
 
 Every release is also published on the [releases page](https://github.com/crizex/art-director/releases).
 
+## 1.1.1
+
+- README: short demo animation of a brief, three directions, a pick and the taste.md entry.
+- README: note that the project is not affiliated with Anthropic.
+
 ## 1.1.0
 
 First public release.

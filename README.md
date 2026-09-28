@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/demo.gif" alt="Demo: a brief, three clearly different design directions, one gets picked, and the choice is written to taste.md" width="100%">
+</p>
+
+<p align="center">
   <a href="#install">Install</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="#your-taste-profile">Taste profile</a> ·
@@ -157,3 +161,5 @@ See [CHANGELOG.md](CHANGELOG.md) or the [releases](https://github.com/crizex/art
 ## License
 
 MIT
+
+Not affiliated with Anthropic. Claude is a trademark of Anthropic.

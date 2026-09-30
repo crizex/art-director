@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halden A - Heat Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#07020f;--bone:#f6efff;--hot:#ffb000;--mag:#ff2d87;--cold:#46f0ff;--x:50%;--y:58%;--r:0px}
+*{box-sizing:border-box}
+html{background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.hero{position:relative;height:100vh;min-height:620px;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .th{-webkit-mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),#000 0,#000 40%,transparent 100%);mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),#000 0,#000 40%,transparent 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,2,15,.55),transparent 28%,transparent 55%,rgba(7,2,15,.85))}
+.scan{position:absolute;left:0;right:0;height:2px;background:var(--cold);box-shadow:0 0 24px 6px var(--cold);z-index:3;top:0;opacity:0}
+nav{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+nav .l{display:flex;gap:28px}
+.btn{border:1px solid var(--bone);padding:10px 18px;border-radius:999px;background:rgba(7,2,15,.4);backdrop-filter:blur(6px)}
+.btn.hot{background:var(--hot);border-color:var(--hot);color:#1a0b00;font-weight:500}
+h1{position:absolute;z-index:4;left:24px;bottom:-1.2vw;margin:0;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:17vw;line-height:.8;letter-spacing:-.045em;color:var(--bone);overflow:hidden;padding-top:.05em;white-space:nowrap}
+h1 span{display:inline-block;will-change:transform}
+.lede{position:absolute;z-index:5;left:40px;top:118px;max-width:320px;text-transform:uppercase;letter-spacing:.06em;font-size:12px}
+.lede b{color:var(--hot);font-weight:500}
+.scale{position:fixed;z-index:20;right:26px;top:110px;bottom:110px;width:10px;border-radius:5px;background:linear-gradient(#fff6c2,#ffb000 18%,#ff2d87 45%,#5a1fb0 72%,#46f0ff);}
+.scale i{position:absolute;right:20px;font-style:normal;font-size:10px;letter-spacing:.06em;opacity:.8}
+.mark{position:absolute;left:-14px;width:38px;height:2px;background:#fff;top:0}
+.mark em{position:absolute;right:48px;top:-10px;font-style:normal;background:var(--bone);color:var(--ink);padding:1px 7px;border-radius:2px;font-weight:500;white-space:nowrap}
+.next{position:absolute;z-index:5;right:70px;bottom:24vh;text-align:right;text-transform:uppercase;letter-spacing:.06em;font-size:12px}
+.next strong{display:block;font-family:'Archivo';font-stretch:110%;font-size:40px;letter-spacing:-.02em;line-height:1;margin:4px 0 10px}
+.sess{display:grid;grid-template-columns:42% 1fr;gap:0;min-height:100vh;padding:0 70px 0 0}
+.stick{position:sticky;top:0;height:100vh;overflow:hidden}
+.stick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stick .th2{opacity:0;transition:opacity .5s}
+.sess.hot .th2{opacity:1}
+.list{padding:14vh 0 14vh 60px}
+.list h2{margin:0 0 40px;font-family:'Archivo';font-stretch:110%;font-weight:800;font-size:clamp(34px,4.4vw,68px);line-height:.95;letter-spacing:-.03em;max-width:12em}
+.row{display:grid;grid-template-columns:90px 1fr 120px 130px;gap:20px;align-items:center;padding:22px 0;border-top:1px solid rgba(246,239,255,.22);text-transform:uppercase;letter-spacing:.05em;transition:background .3s}
+.row:last-child{border-bottom:1px solid rgba(246,239,255,.22)}
+.row .t{font-family:'Archivo';font-stretch:115%;font-weight:800;font-size:30px;letter-spacing:-.02em}
+.row .bar{height:10px;border-radius:5px;background:rgba(246,239,255,.1);overflow:hidden;position:relative}
+.row .bar i{position:absolute;inset:0;width:0;border-radius:5px}
+.row small{display:block;opacity:.7;font-size:11px}
+.row:hover{background:rgba(255,176,0,.08)}
+.row.c .bar i{background:linear-gradient(90deg,#5a1fb0,#46f0ff)}
+.row:not(.c) .bar i{background:linear-gradient(90deg,#5a1fb0,#ff2d87,#ffb000,#fff6c2)}
+@media(max-width:800px){.sess{grid-template-columns:1fr;padding:0}.stick{height:50vh;position:relative}.list{padding:40px 24px}.row{grid-template-columns:70px 1fr 90px}.row .bar{display:none}.scale{display:none}nav .l a:nth-child(n+3){display:none}}
+</style>
+</head>
+<body>
+<header class="hero" id="hero">
+  <img src="img/a_normal.webp" alt="Three people sitting in a dark steel sauna inside a converted barge">
+  <img class="th" src="img/a_thermal.webp" alt="" aria-hidden="true">
+  <div class="scan" id="scan"></div>
+  <nav><div class="l"><a href="#">Halden&reg;</a><a href="#sess">Sessions</a><a href="#">The barge</a><a href="#">Members</a></div><a class="btn hot" href="#sess">Book a session</a></nav>
+  <p class="lede"><b>Sauna &amp; cold plunge club.</b><br>Berth 7, Copenhagen harbour. A 1961 cargo barge, one oven, one ice bath. Members book 90 minutes at a time.</p>
+  <h1 aria-label="Halden"><span>H</span><span>A</span><span>L</span><span>D</span><span>E</span><span>N</span></h1>
+  <div class="next">Next free session<strong>18:30 / 82&deg;C</strong><a class="btn" href="#sess">6 seats left &rarr;</a></div>
+</header>
+
+<div class="scale" aria-hidden="true">
+  <i style="top:0">90&deg;</i><i style="top:30%">60&deg;</i><i style="top:62%">20&deg;</i><i style="bottom:0">4&deg;</i>
+  <div class="mark" id="mark"><em id="temp">82&deg;C</em></div>
+</div>
+
+<section class="sess" id="sess">
+  <div class="stick"><img src="img/a_normal.webp" alt=""><img class="th2" src="img/a_thermal.webp" alt=""></div>
+  <div class="list">
+    <h2>Today, by temperature.</h2>
+    <a class="row" href="#"><span class="t">06:30</span><span>Sauna, first light<small>3 seats left</small></span><span class="bar"><i data-w="88%"></i></span><span style="text-align:right">82&deg;C &rarr;</span></a>
+    <a class="row c" href="#"><span class="t">08:00</span><span>Cold plunge, harbour<small>8 seats left</small></span><span class="bar"><i data-w="6%"></i></span><span style="text-align:right">4&deg;C &rarr;</span></a>
+    <a class="row" href="#"><span class="t">12:30</span><span>Sauna, lunch<small>Full. Waitlist</small></span><span class="bar"><i data-w="80%"></i></span><span style="text-align:right">80&deg;C &rarr;</span></a>
+    <a class="row" href="#"><span class="t">18:30</span><span>Sauna, after work<small>6 seats left</small></span><span class="bar"><i data-w="92%"></i></span><span style="text-align:right">85&deg;C &rarr;</span></a>
+    <a class="row c" href="#"><span class="t">21:00</span><span>Plunge, lights out<small>5 seats left</small></span><span class="bar"><i data-w="5%"></i></span><span style="text-align:right">4&deg;C &rarr;</span></a>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hero = document.getElementById('hero');
+let lenis; try{ lenis = new Lenis({lerp:.08}); lenis.on('scroll',ScrollTrigger.update); gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);}catch(e){}
+
+// thermal lens: follows the pointer, wanders on its own when idle, grows with scroll
+const s = {x:.5,y:.58,tx:.5,ty:.58,r:0,base:0,boost:0,idle:true,t:0};
+addEventListener('pointermove',e=>{s.idle=false;s.tx=e.clientX/innerWidth;s.ty=e.clientY/innerHeight;});
+gsap.ticker.add((_,dt)=>{
+  s.t+=dt/1000;
+  if(s.idle){ s.tx=.5+Math.sin(s.t*.8)*.26; s.ty=.6+Math.sin(s.t*1.3)*.12; }
+  s.x+=(s.tx-s.x)*.08; s.y+=(s.ty-s.y)*.08;
+  const r = s.base + s.boost;
+  hero.style.setProperty('--x',(s.x*100)+'%'); hero.style.setProperty('--y',(s.y*100)+'%'); hero.style.setProperty('--r',r+'px');
+});
+// load: scan line sweeps down, lens opens behind it, letters rise
+const tl = gsap.timeline({defaults:{ease:'power3.out'}});
+tl.set('#scan',{opacity:1,top:0})
+  .to('#scan',{top:'100%',duration:1.3,ease:'power2.inOut'})
+  .to(s,{base:reduce?300:340,duration:1.4,ease:'expo.out'},.2)
+  .to('#scan',{opacity:0,duration:.2},1.2)
+  .from('h1 span',{yPercent:110,duration:1.1,stagger:.07},.35)
+  .from('.lede,.next,nav',{opacity:0,y:14,duration:.8,stagger:.1},.9);
+// scroll: the whole picture heats up, thermometer slides down to cold water
+gsap.to(s,{boost:1900,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+const temp=document.getElementById('temp'), mark=document.getElementById('mark'), scale=mark.parentElement;
+ScrollTrigger.create({trigger:document.body,start:'top top',end:'bottom bottom',scrub:true,onUpdate:self=>{
+  const p=self.progress; mark.style.top=(p*(scale.clientHeight-2))+'px';
+  temp.textContent=Math.round(90-p*86)+'°C';
+}});
+gsap.from('h1',{yPercent:0});
+gsap.to('h1',{yPercent:38,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+// sessions: heat bars fill, hovering a row heats the picture
+document.querySelectorAll('.row i').forEach(i=>gsap.to(i,{width:i.dataset.w,duration:1.4,ease:'power3.out',scrollTrigger:{trigger:i,start:'top 92%'}}));
+const sess=document.getElementById('sess');
+document.querySelectorAll('.row').forEach(r=>{r.addEventListener('mouseenter',()=>sess.classList.add('hot'));r.addEventListener('mouseleave',()=>sess.classList.remove('hot'));});
+</script>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halden, sauna and cold plunge on a barge in Copenhagen</title>
+<meta name="theme-color" content="#07020f">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Halden is a members' sauna and cold-plunge club on a 1961 cargo barge at Berth 7, Copenhagen harbour. Book 90 minutes of heat, then the harbour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#07020f; --bone:#f6efff; --hot:#ffb000; --mag:#ff2d87; --cold:#46f0ff; --cobalt:#0d1a8c; --navy:#060b45; --ember:#ff6a1a;
+  --sky:#c8d3ff; /* secondary text on cold grounds */
+  --mute:#d6cfe4; /* secondary text on heat grounds */
+  --x:50%; --y:58%; --r:0px; --wl:100%;
+  --pad:40px; --rail:116px;
+  --wide:'Archivo',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{color-scheme:dark;background:var(--ink);scroll-behavior:auto;overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--wide);font-size:17px;line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+a{touch-action:manipulation}
+h2{text-wrap:balance;scroll-margin-top:90px}
+.t,.d,#temp,#tnav,.next strong,.float{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--cold);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:1.6}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;background:var(--bone);color:var(--ink);padding:10px 16px;border-radius:6px}
+.skip:focus{top:12px}
+
+/* ---------- nav ---------- */
+nav.top{position:fixed;z-index:50;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad);transition:background .4s,backdrop-filter .4s}
+nav.top.solid{background:rgba(7,2,15,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+nav.top .l{display:flex;gap:28px;align-items:center}
+nav.top a.brand{font-weight:800;font-stretch:125%;letter-spacing:.02em}
+.pillbtn{display:inline-block;border:1px solid var(--bone);padding:10px 18px;border-radius:999px;background:rgba(7,2,15,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .25s,color .25s}
+.pillbtn:hover{background:var(--bone);color:var(--ink)}
+.pillbtn.hot{background:var(--hot);border-color:var(--hot);color:#1a0b00;font-weight:500}
+.pillbtn.hot:hover{background:var(--bone);border-color:var(--bone)}
+#tnav{display:none}
+
+/* ---------- temperature rail ---------- */
+.scale{position:fixed;z-index:40;right:26px;top:110px;bottom:110px;width:10px;border-radius:5px;background:linear-gradient(#fff6c2,#ffb000 18%,#ff2d87 45%,#5a1fb0 72%,#46f0ff);pointer-events:none}
+.scale i{position:absolute;right:20px;font-style:normal;background:rgba(7,2,15,.86);color:var(--bone);padding:0 6px;border-radius:2px;white-space:nowrap;transform:translateY(-50%)}
+.scale i.wl{display:none}
+.mark{position:absolute;left:-14px;width:38px;height:2px;background:#fff;top:0;box-shadow:0 0 12px #fff}
+.mark em{position:absolute;right:48px;top:-11px;font-style:normal;background:var(--bone);color:var(--ink);padding:1px 8px;border-radius:2px;font-weight:500;white-space:nowrap;font-family:var(--mono);font-size:12px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:var(--ink)}
+.layer{position:absolute;inset:0;overflow:hidden}
+.layer>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.above .th{-webkit-mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),#000 0,#000 40%,transparent 100%);mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),#000 0,#000 40%,transparent 100%)}
+.above::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,2,15,.7),transparent 30%,transparent 62%,rgba(7,2,15,.6))}
+.under>img{height:125%;top:-10%;object-position:62% 50%;will-change:transform}
+.under .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,30,110,.1),rgba(6,12,70,.55))}
+.under::after{content:"";position:absolute;left:0;right:0;top:0;height:14%;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent)}
+.word{position:absolute;left:24px;margin:0;font-family:var(--wide);font-stretch:125%;font-weight:900;font-size:17vw;line-height:.7;height:.7em;letter-spacing:-.045em;white-space:nowrap;user-select:none;pointer-events:none}
+.above .word{top:calc(var(--wl) - .7em + .015em);color:var(--bone)}
+.word span{display:inline-block}
+.above .word{z-index:2}
+.under .word{top:calc(var(--wl) + .015em);transform:scaleY(-1);color:#bcd4ff;-webkit-mask-image:linear-gradient(to top,#000 0,rgba(0,0,0,.2) 100%);mask-image:linear-gradient(to top,#000 0,rgba(0,0,0,.2) 100%);filter:url(#refract);opacity:.6}
+.scan{position:absolute;left:0;right:0;height:2px;background:var(--cold);box-shadow:0 0 24px 6px var(--cold);z-index:3;top:0;opacity:0}
+.wline{position:absolute;left:0;right:0;height:2px;top:var(--wl);background:#fff;opacity:.85;box-shadow:0 0 16px 2px #fff;z-index:4;margin-top:-1px}
+.lede{position:absolute;isolation:isolate;z-index:5;left:var(--pad);top:104px;max-width:330px;margin:0;color:var(--bone)}
+.lede b{color:var(--hot);font-weight:500}
+.lede::before,.next::before{content:"";position:absolute;z-index:-1;inset:-34px -46px;background:radial-gradient(closest-side,rgba(7,2,15,.9) 0,rgba(7,2,15,.86) 62%,rgba(7,2,15,0) 100%);pointer-events:none}
+.next::before{inset:-30px -44px}
+.next{position:absolute;isolation:isolate;z-index:6;right:calc(var(--rail) + 10px);top:calc(var(--wl) - 12vw - 112px);text-align:right}
+.next strong{display:block;font-family:var(--wide);font-stretch:110%;font-weight:800;font-size:40px;letter-spacing:-.02em;line-height:1;margin:4px 0 12px;text-transform:none}
+.depth{position:absolute;z-index:6;right:calc(var(--rail) + 10px);top:calc(var(--wl) + 6vw);color:var(--bone);background:rgba(6,12,70,.85);padding:2px 8px;border-radius:2px}
+
+/* ---------- shared ---------- */
+.wrap{padding-left:var(--pad);padding-right:calc(var(--rail) + var(--pad))}
+h2{margin:0;overflow-wrap:anywhere;min-width:0;font-family:var(--wide);font-weight:900;line-height:.92;letter-spacing:-.03em}
+.heat h2,.sess h2{font-stretch:118%}
+.cold h2{font-stretch:62%;letter-spacing:-.005em;text-transform:uppercase}
+.heat{background:var(--ink)}
+.rv{will-change:transform,opacity}
+p{margin:0}
+
+/* ---------- heat chapter ---------- */
+.heat{position:relative;padding:18vh 0 14vh;overflow:hidden}
+.heat .grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:5vw;align-items:end}
+.heat h2{font-size:clamp(40px,5.6vw,92px);margin-bottom:32px}
+.heat h2 em{font-style:normal;color:var(--hot)}
+.heat p.body{max-width:30em;color:var(--mute)}
+.heat .facts{margin-top:28px;color:var(--hot)}
+.heat figure{margin:0;position:relative;overflow:hidden;aspect-ratio:16/10}
+.heat figure img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover}
+.heat figure::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink),transparent 25%)}
+
+/* ---------- sessions ---------- */
+.sess{display:grid;grid-template-columns:42% 1fr;background:var(--ink);padding-right:var(--rail)}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.stick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s}
+.stick img.base{opacity:1}
+.sess[data-look=hot] .stick .ht{opacity:1}
+.sess[data-look=cool] .stick .cl{opacity:1}
+.sess[data-look=hot] .stick .base,.sess[data-look=cool] .stick .base{opacity:0}
+.stick::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,var(--ink))}
+.list{padding:16vh 0 16vh 60px}
+.list h2{font-size:clamp(36px,4.6vw,72px);max-width:11em;margin-bottom:18px}
+.list .sub{color:var(--mute);max-width:34em;margin-bottom:44px}
+.row{display:grid;grid-template-columns:96px 1fr 130px 120px;gap:20px;align-items:center;width:100%;text-align:left;background:none;border:0;border-top:1px solid rgba(246,239,255,.3);padding:22px 0;transition:background .3s,padding .3s}
+.row:last-of-type{border-bottom:1px solid rgba(246,239,255,.3)}
+.row .t{font-stretch:115%;font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1}
+.row .n{display:block;font-weight:600;font-size:18px}
+.row .s{display:block;color:var(--mute);margin-top:2px}
+.row .bar{height:10px;border-radius:5px;background:rgba(246,239,255,.14);overflow:hidden;position:relative}
+.row .bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:5px}
+.row.c .bar i{background:linear-gradient(90deg,#5a1fb0,#46f0ff)}
+.row:not(.c) .bar i{background:linear-gradient(90deg,#5a1fb0,#ff2d87,#ffb000,#fff6c2)}
+.row .d{text-align:right;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.row:hover,.row.on{background:rgba(255,176,0,.09)}
+.row.c:hover,.row.c.on{background:rgba(70,240,255,.1)}
+.row:hover{padding-left:12px;padding-right:12px}
+.row[disabled]{cursor:default}
+
+/* ---------- barge / dive ---------- */
+.dive{position:relative;background:var(--ink)}
+.stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:#9fb2d8}
+.world{position:absolute;top:0;left:50%;height:145vh;height:145svh;width:max(100vw,259.7svh);will-change:transform}
+.world>img{position:absolute;inset:0;width:100%;height:100%}
+.world .wlx{position:absolute;left:0;right:0;top:60%;height:2px;background:#fff;box-shadow:0 0 18px 3px #fff;margin-top:-1px}
+.warm{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,150,40,.3),rgba(255,120,30,0) 55%);mix-blend-mode:multiply;pointer-events:none}
+.tint{position:absolute;inset:0;pointer-events:none}
+.tint.c1{background:linear-gradient(180deg,transparent 58%,rgba(6,30,110,.55) 62%,rgba(6,20,100,.8))}
+.dive .veil{position:absolute;inset:0;background:var(--cobalt);opacity:0;pointer-events:none}
+.tag{position:absolute;display:flex;align-items:center;gap:0;color:var(--bone);z-index:3}
+.tag i{width:10px;height:10px;border-radius:50%;background:var(--hot);outline:3px solid rgba(7,2,15,.6);flex:none}
+.tag b{display:block;width:44px;height:1px;background:var(--bone);flex:none}
+.tag span{background:rgba(7,2,15,.86);padding:6px 10px;border-radius:3px;max-width:230px}
+.tag.l{flex-direction:row-reverse}
+.tag.cl i{background:var(--cold)}
+.dive h2{position:absolute;z-index:5;left:var(--pad);bottom:4vh;font-size:clamp(84px,19vw,330px);color:var(--bone);font-stretch:62%;text-transform:uppercase;line-height:.78;letter-spacing:0;opacity:0;pointer-events:none;filter:url(#refract2)}
+.dive .cap{display:none}
+.dive .who{position:absolute;z-index:5;left:var(--pad);top:96px;background:rgba(7,2,15,.86);padding:8px 12px;border-radius:3px;max-width:320px}
+
+/* ---------- cold ---------- */
+.cold{position:relative;background:linear-gradient(180deg,var(--cobalt),var(--navy) 55%,#04072c);overflow:hidden}
+.bub{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);pointer-events:none;bottom:-40px}
+.plunge{position:relative;min-height:115vh;display:flex;align-items:flex-end;overflow:hidden}
+.plunge>img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover}
+.plunge::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--cobalt),rgba(13,26,140,.2) 35%,rgba(4,7,44,.3) 55%,rgba(4,7,44,.92))}
+.plunge .in{position:relative;z-index:2;padding-top:30vh;padding-bottom:12vh;width:100%}
+.plunge h2{font-size:clamp(90px,21vw,380px);line-height:.78;margin:0 0 4vh -.04em}
+.plunge .cols{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr);gap:5vw;align-items:end}
+.plunge p{color:var(--bone);max-width:30em;font-size:18px}
+.plunge .mono{color:var(--cold);margin-top:22px}
+.rest{padding-top:16vh;padding-bottom:14vh;position:relative}
+.rest .grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:6vw;align-items:center}
+.rest figure{margin:0;overflow:hidden;position:relative;aspect-ratio:16/10}
+.rest figure img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover}
+.rest h2{font-size:clamp(64px,9vw,150px);margin-bottom:26px}
+.rest p{color:var(--sky);max-width:26em}
+.member{padding-top:14vh;padding-bottom:16vh;position:relative}
+.member h2{font-size:clamp(60px,10vw,180px);margin-bottom:8vh}
+.member .ln{font-stretch:62%;font-weight:800;font-size:clamp(32px,5.6vw,100px);line-height:.98;text-transform:uppercase;letter-spacing:-.005em;padding:1.6vh 0;border-top:1px solid rgba(201,211,255,.35);display:flex;flex-wrap:wrap;gap:0 .3em;align-items:baseline}
+.member .ln b{color:var(--cold);font-weight:900}
+.member .ln small{font-family:var(--wide);font-stretch:100%;font-weight:400;text-transform:none;font-size:16px;letter-spacing:0;line-height:1.5;color:var(--sky);flex-basis:100%;max-width:34em;margin-top:.6em}
+.member .go{margin-top:6vh;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--cold);color:#021018;border:0;border-radius:999px;padding:14px 26px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;transition:background .25s,transform .25s}
+.btn:hover{background:var(--bone);transform:translateY(-2px)}
+.ghost{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sky);text-decoration:underline;text-underline-offset:5px;background:none;border:0;padding:8px 0}
+.ghost:hover{color:#fff}
+.find{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+.find>img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover}
+.find::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#04072c,rgba(4,7,44,.15) 30%,rgba(4,7,44,.5) 60%,#04072c)}
+.find .in{position:relative;z-index:2;width:100%;padding-top:30vh;padding-bottom:8vh}
+.find h2{font-size:clamp(56px,9vw,150px);margin-bottom:5vh}
+.find .cols{display:grid;grid-template-columns:repeat(2,minmax(0,22em));gap:4vh 5vw}
+.find .cols div{background:rgba(4,7,44,.82);padding:16px 18px;border-radius:4px}
+.find dt{color:var(--cold);margin-bottom:4px}
+.find dd{margin:0;color:var(--bone)}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:9vh;padding-top:22px;border-top:1px solid rgba(201,211,255,.4);color:var(--sky)}
+.foot button{color:var(--bone)}
+
+/* ---------- floating book pill ---------- */
+.float{position:fixed;z-index:45;left:50%;bottom:24px;transform:translate(-50%,120px);display:flex;gap:6px;align-items:center;background:var(--ember);color:#1a0800;border:0;border-radius:999px;padding:8px 8px 8px 22px;font-weight:700;font-size:15px;box-shadow:0 10px 40px rgba(0,0,0,.4);transition:transform .5s cubic-bezier(.2,.8,.2,1);white-space:nowrap}
+.float.show{transform:translate(-50%,0)}
+.float span{font-weight:600}
+.float i{font-style:normal;background:#1a0800;color:#fff;border-radius:999px;padding:10px 18px;margin-left:10px}
+
+/* ---------- dialog ---------- */
+dialog{border:1px solid rgba(246,239,255,.35);border-radius:14px;background:var(--ink);color:var(--bone);padding:0;width:min(520px,calc(100vw - 32px));max-height:calc(100svh - 32px);overflow:auto}
+dialog{overscroll-behavior:contain}
+.float:hover{background:var(--bone)}
+dialog::backdrop{background:rgba(4,7,44,.78);backdrop-filter:blur(6px)}
+dialog form,dialog .done{padding:30px}
+dialog h3{margin:0 0 4px;font-stretch:115%;font-weight:800;font-size:28px;line-height:1.05;letter-spacing:-.02em}
+dialog .det{color:var(--mute);margin-bottom:22px}
+dialog label,dialog legend{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:16px 0 6px;padding:0}
+dialog input[type=text],dialog input[type=email]{width:100%;padding:12px 14px;font:inherit;background:#15101f;color:var(--bone);border:1px solid rgba(246,239,255,.4);border-radius:8px}
+dialog fieldset{border:0;margin:0;padding:0;display:flex;gap:10px}
+dialog fieldset label{margin:0;flex:1}
+dialog fieldset input{position:absolute;opacity:0}
+dialog fieldset span{display:block;text-align:center;padding:12px;border:1px solid rgba(246,239,255,.4);border-radius:8px;color:var(--bone);font-size:15px;cursor:pointer}
+dialog fieldset input:checked+span{background:var(--hot);border-color:var(--hot);color:#1a0b00}
+dialog fieldset input:focus-visible+span{outline:2px solid var(--cold);outline-offset:3px}
+dialog .act{display:flex;gap:16px;align-items:center;margin-top:26px}
+dialog .btn.h{background:var(--hot);color:#1a0b00}
+dialog .btn.h:hover{background:var(--bone)}
+dialog .err{color:#ffb4a8;min-height:1.4em;margin-top:10px;font-size:14px}
+
+@media(max-width:800px){
+  :root{--pad:20px;--rail:0px}
+  body{font-size:16px}
+  nav.top{padding:12px var(--pad)}
+  nav.top .l a:not(.brand){display:none}
+  nav.top .pillbtn{padding:8px 14px}
+  #tnav{display:block;font-family:var(--mono);font-size:12px;background:rgba(7,2,15,.86);padding:2px 8px;border-radius:2px}
+  .scale{right:6px;width:5px;top:70px;bottom:24px}
+  .scale i,.mark em{display:none}
+  .mark{left:-5px;width:15px}
+  .wrap{padding-right:calc(var(--pad) + 14px)}
+  .lede{top:76px;max-width:none;right:calc(var(--pad) + 14px)}
+  .next{top:auto;bottom:18px;left:var(--pad);right:auto;text-align:left}
+  .next strong{font-size:30px;margin-bottom:8px}
+  .depth{display:none}
+  .word{left:10px}
+  .heat{padding:12vh 0 10vh}
+  .heat .grid,.rest .grid,.plunge .cols{grid-template-columns:1fr;gap:5vh}
+  .heat figure{order:-1}
+  .sess{grid-template-columns:1fr;padding-right:0}
+  .stick{position:sticky;top:0;height:30svh;z-index:2}
+  .stick::after{background:linear-gradient(180deg,transparent 60%,var(--ink))}
+  .list{padding:4vh calc(var(--pad) + 14px) 12vh var(--pad)}
+  .row{grid-template-columns:64px 1fr 84px;gap:12px;padding:18px 0}
+  .row .t{font-size:22px}
+  .row .bar{display:none}
+  .row .n{font-size:16px}
+  .row:hover{padding-left:0;padding-right:0}
+  .tag{display:none}
+  .dive .cap{display:block;position:absolute;z-index:5;left:var(--pad);right:calc(var(--pad) + 14px);bottom:28px;background:rgba(7,2,15,.86);padding:12px 14px;border-radius:4px;min-height:3.6em}
+  .dive .who{right:calc(var(--pad) + 14px);top:60px}
+  .dive h2{bottom:auto;top:40%}
+  .plunge{min-height:100svh}
+  .plunge::before{background:linear-gradient(180deg,var(--cobalt),rgba(13,26,140,.3) 25%,rgba(4,7,44,.8) 50%,rgba(4,7,44,.95))}
+  .find::before{background:linear-gradient(180deg,#04072c,rgba(4,7,44,.6) 30%,rgba(4,7,44,.78) 55%,#04072c)}
+  .plunge h2{font-size:24vw}
+  .rest{padding-top:9vh;padding-bottom:6vh}
+  .member{padding-top:8vh;padding-bottom:10vh}
+  .plunge p{font-size:17px}
+  .member .ln small{font-size:15px}
+  .find .cols{grid-template-columns:1fr}
+  .float{bottom:14px;font-size:14px;padding-left:16px}
+  .float i{padding:9px 14px;margin-left:4px}
+  dialog form,dialog .done{padding:22px}
+}
+@media(prefers-reduced-motion:reduce){
+  .stick img{transition:none}
+  .float{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#sessions">Skip to sessions</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="refract" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence id="turb" type="fractalNoise" baseFrequency="0.006 0.04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="34" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="refract2" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.004 0.03" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<nav class="top" id="nav">
+  <div class="l"><a class="brand mono" translate="no" href="#hero">Halden&reg;</a><a class="mono" href="#sessions">Sessions</a><a class="mono" href="#barge">The barge</a><a class="mono" href="#members">Members</a><a class="mono" href="#find">Find us</a></div>
+  <span id="tnav" aria-hidden="true">82&deg;C</span>
+  <button class="pillbtn hot mono" data-book="next">Book a session</button>
+</nav>
+
+<div class="scale" aria-hidden="true" id="scale">
+  <i class="mono" style="top:28.2%">60&deg;</i><i class="mono" style="top:56.4%">38&deg;</i><i class="mono" style="top:79.5%">20&deg;</i><i class="mono" style="top:100%">4&deg;</i>
+  <i class="mono wl" id="wltick">0 m</i>
+  <div class="mark" id="mark"><em id="temp">82&deg;C</em></div>
+</div>
+
+<main id="top">
+<header class="hero" id="hero">
+  <div class="layer above" id="above">
+    <img src="img/a_normal.webp" alt="Three people resting in a dark steel sauna inside a converted barge" width="1920" height="1072" fetchpriority="high">
+    <img class="th" src="img/a_thermal.webp" alt="" aria-hidden="true" width="1920" height="1072">
+    <div class="word" aria-hidden="true" id="word1"><span>H</span><span>A</span><span>L</span><span>D</span><span>E</span><span>N</span></div>
+  </div>
+  <div class="layer under" id="under">
+    <img id="uimg" src="img/b_split.webp" alt="" width="1920" height="1072">
+    <div class="tint"></div>
+    <div class="word" aria-hidden="true">HALDEN</div>
+  </div>
+  <div class="wline" id="wline"></div>
+  <div class="scan" id="scan"></div>
+  <h1 class="sr">Halden, sauna and cold plunge club, Copenhagen harbour</h1>
+  <p class="lede mono"><b>Sauna &amp; cold plunge club.</b><br>Berth 7, Copenhagen harbour. A 1961 cargo barge, one oven, one harbour. Members book 90 minutes at a time.</p>
+  <div class="next mono">Next free session<strong>18:30 / 85&deg;C</strong><button class="pillbtn mono" data-book="r18">6 seats left &rarr;</button></div>
+  <p class="depth mono" aria-hidden="true">0 m &rarr; 4&deg;C</p>
+</header>
+
+<section class="heat" id="ritual" aria-labelledby="h-heat">
+  <div class="wrap grid">
+    <div>
+      <h2 id="h-heat" class="rv">Twenty minutes at <em>82&deg;</em>.</h2>
+      <p class="body">Below deck sits a wood oven the size of a fridge, and a steel hull that keeps what the oven gives. You sit, you sweat, you stop counting. A host throws water on the stones at five, ten and fifteen. The bell rings at twenty, and nobody minds if you leave at twelve.</p>
+      <p class="facts mono">14 seats &middot; 80 to 85&deg;C &middot; birch from Zealand</p>
+    </div>
+    <figure class="rv"><img src="img/stove.webp" alt="A cast-iron stove glowing with hot stones inside the barge sauna" width="1376" height="768" loading="lazy" data-par></figure>
+  </div>
+</section>
+
+<section class="sess" id="sessions" data-look="" aria-labelledby="h-sess">
+  <div class="stick" aria-hidden="true">
+    <img class="base" src="img/a_normal.webp" alt="" width="1920" height="1072" loading="lazy">
+    <img class="ht" src="img/a_thermal.webp" alt="" width="1920" height="1072" loading="lazy">
+    <img class="cl" src="img/plunge.webp" alt="" width="1376" height="768" loading="lazy">
+  </div>
+  <div class="list">
+    <h2 id="h-sess" class="rv">Today, by temperature.</h2>
+    <p class="sub">Hottest first, coldest last, the way the evening goes. Tap a session to hold seats. Members book 14 days ahead.</p>
+    <div id="rows">
+      <button class="row" data-id="r18" data-look="hot" data-left="6" data-cap="14" data-time="18:30" data-name="Sauna, after work" data-deg="85" data-fill="92"><span class="t">18:30</span><span><span class="n">Sauna, after work</span><span class="s mono"></span></span><span class="bar"><i data-w="92%"></i></span><span class="d">85&deg;C &rarr;</span></button>
+      <button class="row" data-id="r06" data-look="hot" data-left="3" data-cap="14" data-time="06:30" data-name="Sauna, first light" data-deg="82" data-fill="88"><span class="t">06:30</span><span><span class="n">Sauna, first light</span><span class="s mono"></span></span><span class="bar"><i data-w="88%"></i></span><span class="d">82&deg;C &rarr;</span></button>
+      <button class="row" data-id="r12" data-look="hot" data-left="0" data-cap="14" data-time="12:30" data-name="Sauna, lunch" data-deg="80" data-fill="80"><span class="t">12:30</span><span><span class="n">Sauna, lunch</span><span class="s mono"></span></span><span class="bar"><i data-w="80%"></i></span><span class="d">80&deg;C &rarr;</span></button>
+      <button class="row c" data-id="r08" data-look="cool" data-left="8" data-cap="12" data-time="08:00" data-name="Plunge, harbour side" data-deg="4" data-fill="6"><span class="t">08:00</span><span><span class="n">Plunge, harbour side</span><span class="s mono"></span></span><span class="bar"><i data-w="6%"></i></span><span class="d">4&deg;C &rarr;</span></button>
+      <button class="row c" data-id="r21" data-look="cool" data-left="5" data-cap="12" data-time="21:00" data-name="Plunge, lights out" data-deg="4" data-fill="5"><span class="t">21:00</span><span><span class="n">Plunge, lights out</span><span class="s mono"></span></span><span class="bar"><i data-w="5%"></i></span><span class="d">4&deg;C &rarr;</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="dive" id="barge" aria-labelledby="h-dive">
+  <div class="stage" id="stage">
+    <div class="world" id="world">
+      <img src="img/b_split.webp" alt="The black cargo barge Halden moored at Berth 7 at dusk, its chimney smoking; below the surface a swimmer glides over the harbour floor" width="1920" height="1072" loading="lazy">
+      <div class="warm"></div><div class="tint c1"></div>
+      <div class="wlx"></div>
+      <div class="tag" style="left:56.3%;top:22%" data-step="1"><i></i><b></b><span class="mono">Chimney. Lit at 05:45 every morning.</span></div>
+      <div class="tag l" style="left:64%;top:32%" data-step="2"><i></i><b></b><span class="mono">Wheelhouse: check-in, lockers, tea.</span></div>
+      <div class="tag l" style="left:44%;top:38.5%" data-step="3"><i></i><b></b><span class="mono">Hatch to the sauna, below deck. 14 seats.</span></div>
+      <div class="tag" style="left:50%;top:50%" data-step="4"><i></i><b></b><span class="mono">Pontoon and ladder. Your way into the harbour.</span></div>
+      <div class="tag cl" style="left:30%;top:72%" data-step="5"><i></i><b></b><span class="mono">Harbour, 4&deg;C. 6.2 m deep at Berth 7.</span></div>
+      <div class="tag cl l" style="left:75%;top:85%" data-step="6"><i></i><b></b><span class="mono">Swim lane between the buoys. Three minutes at most.</span></div>
+    </div>
+    <p class="who mono" id="who">The barge, built 1961 in Svendborg to carry coal. 31 m long. Since 2024 it carries people.</p>
+    <p class="cap mono" id="cap" aria-hidden="true"></p>
+    <div class="veil" id="veil"></div>
+    <h2 id="h-dive">Below<br>the line.</h2>
+  </div>
+</section>
+
+<div class="cold">
+  <section class="plunge" id="plunge" aria-labelledby="h-plunge">
+    <img src="img/plunge.webp" alt="A woman sits on the rim of a steel plunge tub on the barge deck at blue hour, about to step in" width="1376" height="768" loading="lazy" data-par>
+    <div class="wrap in">
+      <h2 id="h-plunge" class="rv">Four<br>degrees.</h2>
+      <div class="cols">
+        <p>Two minutes, in the tub on deck or down the ladder into the harbour. Breathe out slowly. The first thirty seconds are the loud ones, then the water goes quiet and so do you. A host counts you in and out, and the gloves and hats are in the locker.</p>
+        <p class="mono">2 min &middot; 4 to 8&deg;C &middot; harbour water, unfiltered</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rest wrap" id="rest" aria-labelledby="h-rest">
+    <div class="grid">
+      <figure class="rv"><img src="img/rest.webp" alt="Three people in wool blankets on the barge deck at dusk, holding mugs, the harbour lights behind them" width="1376" height="768" loading="lazy" data-par></figure>
+      <div>
+        <h2 id="h-rest" class="rv">Then<br>the deck.</h2>
+        <p>Wool blankets, tea from the wheelhouse, forty minutes of nothing. The skin hums and the harbour goes blue. It is the part people book for and rarely admit to.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="member wrap" id="members" aria-labelledby="h-mem">
+    <h2 id="h-mem" class="rv">Come down<br>for good.</h2>
+    <div class="ln rv"><span>Members book</span> <b>14 days</b> <span>out. Guests book</span> <b>2.</b></div>
+    <div class="ln rv"><b>690 kr.</b> <span>a month.</span> <span>Four sessions a week, plunge whenever the doors are open.</span></div>
+    <div class="ln rv"><span>One guest a month.</span> <span>Pause any month and keep your place.</span></div>
+    <div class="ln rv"><b>212</b> <span>members, cap at 240.</span> <b>38</b> <span>waiting.</span><small>The wait is about five weeks. The oven only takes so many people, and we like it that way.</small></div>
+    <div class="go"><button class="btn" data-join>Ask for a place</button><span class="mono" style="color:var(--sky)">No fee to join the list</span></div>
+  </section>
+
+  <section class="find" id="find" aria-labelledby="h-find">
+    <img src="img/quay.webp" alt="The barge moored at a wooden pier in Copenhagen harbour at blue hour, smoke from its chimney, a bicycle on the quay" width="1376" height="768" loading="lazy" data-par>
+    <div class="wrap in">
+      <h2 id="h-find" class="rv" style="font-stretch:62%;text-transform:uppercase;letter-spacing:-.005em">Berth 7.</h2>
+      <dl class="cols mono" style="margin:0">
+        <div><dt>Where</dt><dd>Islands Brygge, Copenhagen S<br>55.6626&deg; N, 12.5797&deg; E</dd></div>
+        <div><dt>Getting here</dt><dd>Metro M1 to Islands Brygge, six minutes on foot along the water. Bike rack on the quay, room for thirty.</dd></div>
+        <div><dt>Open</dt><dd>Tuesday to Sunday, 06:30 to 22:30. Mondays we scrub the hull.</dd></div>
+        <div><dt>Bring</dt><dd>A swimsuit. Towels, robes and wool are on board.</dd></div>
+      </dl>
+      <div class="foot mono"><span>Halden&reg; Sauna &amp; cold plunge club &middot; hello@halden.example</span><button class="ghost" id="up">Back up to 82&deg;</button></div>
+    </div>
+  </section>
+</div>
+</main>
+
+<button class="float" id="float" data-book="next" aria-label="Book the next free session, today 18:30, 6 seats left"><span>Next:</span> Today 18:30 &middot; <span id="fseats">6 seats</span><i>Book</i></button>
+
+<dialog id="dlg" aria-labelledby="dT">
+  <form id="dform" novalidate>
+    <h3 id="dT"></h3>
+    <p class="det mono" id="dD"></p>
+    <fieldset id="dseats"><legend class="sr">Seats</legend>
+      <label><input type="radio" name="n" value="1" checked><span>1 seat</span></label>
+      <label><input type="radio" name="n" value="2"><span>2 seats</span></label>
+    </fieldset>
+    <label for="dn">Name</label><input id="dn" name="name" type="text" autocomplete="name" placeholder="Mette Holm…" required>
+    <label for="de">Email</label><input id="de" name="email" type="email" inputmode="email" spellcheck="false" autocomplete="email" placeholder="mette@example.dk…" required>
+    <p class="err" id="derr" role="alert"></p>
+    <div class="act"><button class="btn h" type="submit" id="dgo">Hold seats</button><button class="ghost" type="button" id="dx">Cancel</button></div>
+  </form>
+  <div class="done" id="ddone" hidden>
+    <h3 id="dDT"></h3>
+    <p class="det" id="dDD" role="status"></p>
+    <button class="btn h" type="button" id="dok">Done</button>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const small=()=>innerWidth<=800;
+let lenis=null, hasGSAP=!!window.gsap&&!!window.ScrollTrigger;
+
+/* ---------- sessions, seats, dialog (works without any motion library) ---------- */
+const rows=$$('.row');
+function paintRow(r){
+  const left=+r.dataset.left, s=$('.s',r);
+  s.textContent = left>0 ? left+' of '+r.dataset.cap+' seats left' : 'Full. Join the waitlist';
+  r.setAttribute('aria-label',r.dataset.time+' '+r.dataset.name+', '+r.dataset.deg+' degrees, '+(left>0?left+' seats left':'full, waitlist'));
+  if(r.dataset.id==='r18'){ $('#fseats').textContent=left+(left===1?' seat':' seats'); $('.next button').textContent=(left>0?left+' seats left':'Waitlist')+' →'; }
+}
+rows.forEach(paintRow);
+const dlg=$('#dlg'), form=$('#dform'), done=$('#ddone');
+let ctx=null;
+function openDlg(c){
+  ctx=c; form.hidden=false; done.hidden=true; form.reset(); $('#derr').textContent='';
+  $('#dT').textContent=c.title; $('#dD').textContent=c.detail; $('#dgo').textContent=c.cta;
+  $('#dseats').style.display=c.seats?'flex':'none';
+  if(c.seats&&c.left<2){ $('#dseats input[value="2"]').disabled=true; } else { $('#dseats input[value="2"]').disabled=false; }
+  if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open','');
+  if(lenis) lenis.stop();
+  setTimeout(()=>$('#dn').focus(),30);
+}
+function closeDlg(){ if(dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+dlg.addEventListener('close',()=>{ if(lenis) lenis.start(); });
+dlg.addEventListener('click',e=>{ if(e.target===dlg) closeDlg(); });
+$('#dx').onclick=closeDlg; $('#dok').onclick=closeDlg;
+function openRow(r){
+  const left=+r.dataset.left, full=left<=0;
+  openDlg({kind:'row',row:r,left,seats:!full,
+    title:full?'Join the waitlist':'Hold seats',
+    detail:r.dataset.time+' / '+r.dataset.name+' / '+r.dataset.deg+'°C / Today',
+    cta:full?'Join waitlist':'Hold seats'});
+}
+rows.forEach(r=>r.addEventListener('click',()=>openRow(r)));
+$$('[data-book]').forEach(b=>b.addEventListener('click',()=>{
+  const id=b.dataset.book==='next'?'r18':b.dataset.book; openRow($('[data-id="'+id+'"]'));
+}));
+$$('[data-join]').forEach(b=>b.addEventListener('click',()=>openDlg({kind:'join',seats:false,title:'Ask for a place',detail:'Waitlist / 38 ahead of you / about five weeks',cta:'Join the list'})));
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=$('#dn').value.trim(), mail=$('#de').value.trim();
+  if(!name){ $('#derr').textContent='Add your name.'; $('#dn').focus(); return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ $('#derr').textContent='That email does not look right.'; $('#de').focus(); return; }
+  let t,d;
+  if(ctx.kind==='join'){ t='You are number 39.'; d='We will write to '+mail+' when a place opens. Expect about five weeks.'; }
+  else{
+    const r=ctx.row, n=ctx.seats?+form.n.value:0;
+    if(ctx.left>0){ r.dataset.left=ctx.left-n; paintRow(r); t=n+(n>1?' seats':' seat')+' held.'; d='Held for 10 minutes for '+name+' at '+r.dataset.time+'. Confirmation and door code go to '+mail+'. Members only, guests need a member to sign in.'; }
+    else{ t='You are on the waitlist.'; d='We will write to '+mail+' the moment a seat frees up for '+r.dataset.time+'.'; }
+  }
+  $('#dDT').textContent=t; $('#dDD').textContent=d; form.hidden=true; done.hidden=false; $('#dok').focus();
+});
+
+/* ---------- pointer / scroll helpers that need no library ---------- */
+$('#up').addEventListener('click',()=>{ if(lenis&&!reduce) lenis.scrollTo(0,{duration:3.2}); else scrollTo(0,0); });
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=$(a.getAttribute('href')); if(!t) return; e.preventDefault();
+  if(lenis) lenis.scrollTo(t,{duration:2,offset:0}); else t.scrollIntoView();
+}));
+const nav=$('#nav'); const onScr=()=>nav.classList.toggle('solid',scrollY>60); addEventListener('scroll',onScr,{passive:true}); onScr();
+
+if(!hasGSAP){ $('#float').classList.add('show'); return; }
+gsap.registerPlugin(ScrollTrigger);
+
+if(!reduce){
+  try{ lenis=new Lenis({lerp:.085}); lenis.on('scroll',ScrollTrigger.update); gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0); }catch(e){ lenis=null; }
+}
+
+/* ---------- hero: lens + waterline ---------- */
+const hero=$('#hero'), above=$('#above'), under=$('#under'), uimg=$('#uimg'), turb=$('#turb');
+const st={wl:reduce?72:100, amp:reduce?.5:0, t:0, x:.5,y:.6,tx:.5,ty:.6, base:reduce?330:0, boost:0, idle:true, frame:0, vis:true, sy:0};
+function shape(){
+  const n=60, p=[];
+  for(let i=0;i<=n;i++){ const x=i/n; p.push([x*100, st.wl+Math.sin(x*14+st.t*1.6)*.55*st.amp+Math.sin(x*31-st.t*2.3)*.25*st.amp]); }
+  const fmt=a=>a.map(q=>q[0].toFixed(2)+'% '+q[1].toFixed(2)+'%').join(',');
+  above.style.clipPath='polygon(0% 0%,100% 0%,'+fmt(p.slice().reverse())+')';
+  under.style.clipPath='polygon('+fmt(p)+',100% 100%,0% 100%)';
+  hero.style.setProperty('--wl',st.wl+'%');
+}
+if(!reduce) addEventListener('pointermove',e=>{ st.idle=false; st.tx=e.clientX/innerWidth; st.ty=Math.min(e.clientY/innerHeight,.7); },{passive:true});
+new IntersectionObserver(([e])=>{ st.vis=e.isIntersecting; }).observe(hero);
+function heroTick(_,dt){
+  if(!st.vis) return;
+  st.t+=dt/1000; st.frame++;
+  if(!reduce){
+    if(st.idle){ st.tx=.5+Math.sin(st.t*.8)*.26; st.ty=.52+Math.sin(st.t*1.3)*.1; }
+    st.x+=(st.tx-st.x)*.08; st.y+=(st.ty-st.y)*.08;
+    if(st.frame%4===0) turb.setAttribute('baseFrequency',(0.006+Math.sin(st.t*.6)*.002).toFixed(4)+' '+(0.04+Math.cos(st.t*.8)*.008).toFixed(4));
+  }
+  hero.style.setProperty('--x',(st.x*100)+'%'); hero.style.setProperty('--y',(st.y*100)+'%'); hero.style.setProperty('--r',(st.base+st.boost)+'px');
+  shape();
+}
+shape(); gsap.ticker.add(heroTick);
+// radius in px; the lens must cover the whole picture when scrolled
+hero.style.setProperty('--r',st.base+'px');
+
+if(!reduce){
+  const big=Math.hypot(innerWidth,innerHeight)*1.1;
+  const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+  tl.set('#scan',{opacity:1,top:0})
+    .to('#scan',{top:'100%',duration:1.3,ease:'power2.inOut'})
+    .to(st,{base:small()?230:340,duration:1.6,ease:'expo.out'},.2)
+    .to('#scan',{opacity:0,duration:.2},1.2)
+    .from('#word1 span',{yPercent:120,duration:1.1,stagger:.07},.3)
+    .to(st,{wl:small()?74:72,amp:1.1,duration:2.2,ease:'power3.out'},.2)
+    .from('.lede,.next,.depth,nav.top',{opacity:0,y:14,duration:.8,stagger:.1},1);
+  gsap.to(st,{boost:big,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom top',scrub:true}});
+  gsap.to(uimg,{yPercent:-10,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.word',{yPercent:12,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom top',scrub:true}});
+}
+
+/* ---------- temperature rail ---------- */
+const mark=$('#mark'), temp=$('#temp'), tnav=$('#tnav'), scale=$('#scale'), wlt=$('#wltick');
+let wlP=.5;
+function setTemp(p){
+  mark.style.top=(p*(scale.clientHeight-2))+'px';
+  const v=Math.round(82-p*78); temp.textContent=v+'°C'; tnav.textContent=v+'°C';
+}
+ScrollTrigger.create({trigger:document.body,start:'top top',end:'bottom bottom',onUpdate:s=>setTemp(s.progress)});
+setTemp(0);
+
+/* ---------- reveals ---------- */
+if(!reduce){
+  $$('.rv').forEach(el=>{
+    const fig=el.tagName==='FIGURE';
+    gsap.from(el,fig?{clipPath:'inset(0 0 100% 0)',duration:1.3,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 85%'}}:{y:46,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});});
+  $$('[data-par]').forEach(im=>gsap.fromTo(im,{yPercent:-5},{yPercent:5,ease:'none',scrollTrigger:{trigger:im.parentElement,start:'top bottom',end:'bottom top',scrub:true}}));
+  $$('.row i').forEach(i=>gsap.to(i,{width:i.dataset.w,duration:1.4,ease:'power3.out',scrollTrigger:{trigger:i,start:'top 92%'}}));
+}else{
+  $$('.row i').forEach(i=>i.style.width=i.dataset.w);
+}
+
+/* ---------- sessions: the picture follows the row (hover, or scroll position on touch) ---------- */
+const sess=$('#sessions');
+let hover=false;
+let lastRow=null;
+function activate(r){ lastRow=r; sess.dataset.look=r?r.dataset.look:''; rows.forEach(x=>x.classList.toggle('on',x===r)); }
+rows.forEach(r=>{
+  r.addEventListener('mouseenter',()=>{hover=true;activate(r);});
+  r.addEventListener('focus',()=>activate(r));
+  r.addEventListener('mouseleave',()=>{hover=false;});
+  ScrollTrigger.create({trigger:r,start:'top 62%',end:'bottom 62%',onToggle:s=>{ if(s.isActive&&!hover) activate(r); }});
+});
+ScrollTrigger.create({trigger:sess,start:'top bottom',end:'bottom top',onLeave:()=>activate(null),onLeaveBack:()=>activate(null)});
+
+/* ---------- the dive through the waterline ---------- */
+let diveST=null;
+const stage=$('#stage'), world=$('#world'), veil=$('#veil'), cap=$('#cap');
+const tags=$$('.tag'), caps=tags.map(t=>t.textContent.trim());
+const capsAll=[$('#who').textContent].concat(caps);
+function worldH(){ return world.offsetHeight; }
+gsap.set(world,{xPercent:small()?-56:-46});
+const panMax=()=>Math.max(0,worldH()-stage.clientHeight);
+if(!reduce){
+  gsap.set(tags,{opacity:0,y:10});
+  gsap.set('.tag.l',{xPercent:-100});
+  const dive=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:stage,start:'top top',end:'+=260%',pin:true,scrub:.6,anticipatePin:1,invalidateOnRefresh:true,
+    onUpdate:s=>{ if(small()){ const i=Math.min(capsAll.length-1,Math.floor(s.progress*capsAll.length*1.05)); if(cap.dataset.i!==String(i)){cap.dataset.i=i;cap.textContent=capsAll[i];} } }}});
+  dive.fromTo(world,{y:0},{y:()=>-panMax(),duration:1},0);
+  tags.slice(0,4).forEach((t,i)=>dive.to(t,{opacity:1,y:0,duration:.08,ease:'power2.out'},.02+i*.07));
+  dive.to(tags.slice(0,4),{opacity:0,duration:.1},.46);
+  tags.slice(4).forEach((t,i)=>dive.to(t,{opacity:1,y:0,duration:.08,ease:'power2.out'},.5+i*.1));
+  dive.to('#who',{opacity:0,duration:.1},.15);
+  dive.to(tags.slice(4),{opacity:0,duration:.08},.74);
+  dive.fromTo('#h-dive',{opacity:0,yPercent:30},{opacity:1,yPercent:0,duration:.16,ease:'power2.out'},.68);
+  dive.to(veil,{opacity:1,duration:.22},.78);
+  diveST=dive.scrollTrigger; cap.textContent=capsAll[0];
+}else{
+  gsap.set('.tag.l',{xPercent:-100}); gsap.set(tags,{opacity:1}); tags[0].style.display=tags[5].style.display='none'; gsap.set(world,{y:()=>-panMax()*.5}); $('#h-dive').style.display='none';
+  stage.style.height='auto'; stage.style.minHeight='100svh';
+  cap.textContent=capsAll[0];
+}
+
+/* waterline tick on the rail, placed where the dive crosses the surface */
+function placeWL(){
+  const max=ScrollTrigger.maxScroll(window)||1;
+  const top=diveST?diveST.start:stage.getBoundingClientRect().top+scrollY;
+  const span=reduce?stage.offsetHeight*.5:innerHeight*2.6*.82;
+  const p=Math.min(1,(top+span)/max);
+  wlt.style.top=(p*scale.clientHeight)+'px'; wlt.style.opacity=1;
+}
+ScrollTrigger.addEventListener('refresh',placeWL); placeWL();
+
+/* ---------- bubbles in the cold ---------- */
+if(!reduce){
+  const cold=$('.cold');
+  for(let i=0;i<14;i++){ const b=document.createElement('span'); b.className='bub'; b.setAttribute('aria-hidden','true'); const s=8+Math.random()*24;
+    b.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(Math.random()*94)+'%;top:'+(Math.random()*100)+'%;bottom:auto'; cold.appendChild(b);
+    gsap.to(b,{y:-(180+Math.random()*320),opacity:0,duration:5+Math.random()*5,repeat:-1,ease:'none',delay:Math.random()*5}); }
+}
+
+/* ---------- floating booking pill ---------- */
+const fl=$('#float');
+const pillOn={a:false,b:false}; const pillSet=()=>fl.classList.toggle('show',pillOn.a||pillOn.b);
+ScrollTrigger.create({trigger:'#ritual',start:'top 60%',endTrigger:'#sessions',end:'top 30%',onToggle:s=>{pillOn.a=s.isActive;pillSet();}});
+ScrollTrigger.create({trigger:'.cold',start:'top 20%',endTrigger:'#find',end:'top 40%',onToggle:s=>{pillOn.b=s.isActive;pillSet();}});
+if(reduce) fl.classList.add('show');
+addEventListener('load',()=>ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

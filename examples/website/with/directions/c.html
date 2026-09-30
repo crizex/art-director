@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halden C - Hi-Vis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--or:#ff5a1f;--bk:#0b0b0b;--wh:#fff8ee}
+*{box-sizing:border-box}
+body{margin:0;background:var(--or);color:var(--bk);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden;background:var(--or)}
+.word{position:absolute;left:1vw;right:0;bottom:-5.5vw;margin:0;font-family:'Inter Tight',sans-serif;font-weight:900;font-size:28.5vw;line-height:.74;letter-spacing:-.07em;color:var(--bk);white-space:nowrap;user-select:none}
+.corner{position:absolute;z-index:8;max-width:230px;line-height:1.45}
+.tl{top:22px;left:24px}.tr{top:22px;right:24px;text-align:right}.bl{left:24px;bottom:24px;color:var(--or);z-index:9;mix-blend-mode:normal}
+.card{position:absolute;z-index:5;width:19vw;min-width:150px;background:var(--wh);padding:.55vw;box-shadow:0 18px 40px rgba(60,10,0,.35);cursor:grab;touch-action:none}
+.card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;pointer-events:none;filter:contrast(1.06) saturate(1.08)}
+.card.sq img{aspect-ratio:1}
+.card span{display:block;padding:7px 2px 3px;font-size:10px}
+.ticket{position:fixed;z-index:50;right:24px;bottom:24px;width:270px;background:var(--wh);padding:16px 18px 14px;transform:rotate(-2.5deg);box-shadow:0 14px 34px rgba(0,0,0,.35);
+ -webkit-mask:radial-gradient(circle 8px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 8px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 8px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 8px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.ticket b{font-family:'Inter Tight';font-weight:900;font-size:30px;letter-spacing:-.04em;display:block;line-height:1;text-transform:none;margin:4px 0 8px}
+.ticket .go{display:flex;justify-content:space-between;border-top:2px dashed var(--bk);margin-top:10px;padding-top:10px;font-weight:500}
+.band{position:absolute;z-index:7;left:0;right:0;top:46%;background:var(--bk);color:var(--or);overflow:hidden;white-space:nowrap;font-family:'Inter Tight';font-weight:900;font-size:26px;letter-spacing:-.02em;padding:6px 0;transform:rotate(-3deg);width:110%;margin-left:-5%}
+.band div{display:inline-block;will-change:transform}
+.wall{background:var(--bk);color:var(--wh);padding:14vh 24px 18vh;position:relative}
+.wall h2{font-family:'Inter Tight';font-weight:900;font-size:clamp(54px,12vw,210px);line-height:.82;letter-spacing:-.07em;margin:0 0 8vh;text-transform:none;color:var(--or)}
+.slots{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px}
+.slot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #444;padding:16px 0;font-size:13px}
+.slot em{font-style:normal;font-family:'Inter Tight';font-weight:900;font-size:clamp(40px,6vw,96px);letter-spacing:-.05em;line-height:.9;color:var(--wh)}
+.slot:hover em{color:var(--or)}
+.pics{position:absolute;right:24px;top:-12vh;width:24vw}
+.pics img{width:100%;display:block;margin-bottom:2vw;filter:contrast(1.05)}
+@media(max-width:800px){.card{width:40vw}.slots{grid-template-columns:1fr}.pics{display:none}.ticket{width:220px}.word{font-size:40vw}}
+</style>
+</head>
+<body>
+<section class="hero" id="hero">
+  <div class="corner tl">Halden&reg;<br>Sauna &amp; cold plunge<br>On a barge</div>
+  <div class="corner tr"><a href="#wall">Sessions</a> / <a href="#">Members</a> / <a href="#">Log in</a></div>
+  <div class="corner bl">55.6761&deg;N 12.5683&deg;E<br>Berth 7, Copenhagen</div>
+  <div class="band" id="band"><div>SAUNA 82&deg; &mdash; PLUNGE 4&deg; &mdash; SAUNA 82&deg; &mdash; PLUNGE 4&deg; &mdash; SAUNA 82&deg; &mdash; PLUNGE 4&deg; &mdash; SAUNA 82&deg; &mdash; PLUNGE 4&deg; &mdash; SAUNA 82&deg; &mdash; PLUNGE 4&deg; &mdash; SAUNA 82&deg; &mdash; PLUNGE 4&deg; &mdash; </div></div>
+  <div class="card" style="left:6vw;top:14vh"><img src="img/c_1.webp" alt="A man in a towel on the steel deck of the barge at night"><span>06:30 / Deck</span></div>
+  <div class="card sq" style="left:27vw;top:30vh"><img src="img/c_3.webp" alt="Orange steel door with a porthole to the sauna"><span>The door</span></div>
+  <div class="card" style="left:45vw;top:10vh"><img src="img/c_2.webp" alt="Wet hair and steam"><span>After 90 min</span></div>
+  <div class="card" style="left:62vw;top:26vh"><img src="img/c_4.webp" alt="A steel cold plunge tub with ice on the deck"><span>4&deg;C</span></div>
+  <div class="card sq" style="left:76vw;top:8vh"><img src="img/c_5.webp" alt="Two friends with tea on the dock"><span>Members only</span></div>
+  <h1 class="word" aria-label="Halden">HALDEN</h1>
+</section>
+
+<a class="ticket" id="ticket" href="#wall">Admit one &middot; 90 min<b>Today 18:30</b>6 places left<div class="go"><span>Sauna 82&deg;</span><span>Book &rarr;</span></div></a>
+
+<section class="wall" id="wall">
+  <div class="pics"><img src="img/c_3.webp" alt="" loading="lazy"><img src="img/c_5.webp" alt="" loading="lazy"></div>
+  <h2>Pick<br>a time.</h2>
+  <div class="slots" style="max-width:66vw">
+    <div class="slot"><em>06:30</em><span>Sauna / 3 left</span></div>
+    <div class="slot"><em>08:00</em><span>Plunge / 8 left</span></div>
+    <div class="slot"><em>12:30</em><span>Sauna / waitlist</span></div>
+    <div class="slot"><em>18:30</em><span>Sauna / 6 left</span></div>
+    <div class="slot"><em>20:00</em><span>Plunge / 4 left</span></div>
+    <div class="slot"><em>21:30</em><span>Sauna / 9 left</span></div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(()=>{
+gsap.registerPlugin(ScrollTrigger,Draggable);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let vel=0; try{ const lenis=new Lenis({lerp:.09}); lenis.on('scroll',e=>{ScrollTrigger.update();vel=e.velocity}); gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);}catch(e){}
+const cards=gsap.utils.toArray('.card'); let zi=10;
+// load: the giant word slams up, then the photos are dropped onto the page like prints thrown on a table
+const rot=[-7,4,-3,8,-5];
+gsap.set(cards,{rotation:i=>rot[i]});
+const tl=gsap.timeline();
+tl.from('.word',{yPercent:100,duration:1,ease:'expo.out'})
+  .from(cards,{y:()=>-innerHeight*1.3,rotation:()=>gsap.utils.random(-60,60),opacity:0,duration:reduce?.01:1.1,ease:'bounce.out',stagger:.14},.35)
+  .from('.corner,.band',{opacity:0,duration:.5,stagger:.08},1)
+  .from('#ticket',{y:200,rotation:8,duration:.8,ease:'back.out(1.6)'},1.3);
+// every print can be picked up and moved
+Draggable.create(cards,{type:'x,y',bounds:'#hero',zIndexBoost:false,onPress(){zi++;this.target.style.zIndex=zi;gsap.to(this.target,{scale:1.06,rotation:0,duration:.25});},onRelease(){gsap.to(this.target,{scale:1,rotation:gsap.utils.random(-6,6),duration:.35,ease:'back.out(2)'});}});
+// ticker band: speed follows scroll velocity
+const band=document.querySelector('#band div'); let x=0;
+gsap.ticker.add(()=>{x-=1.1+Math.abs(vel)*1.6; const w=band.scrollWidth/2; if(x<-w)x+=w; band.style.transform='translateX('+x+'px)';});
+// scroll: prints drift apart at different speeds, word stays put
+cards.forEach((c,i)=>gsap.to(c,{yPercent:-40-i*25,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}}));
+gsap.to('.word',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+// wall: numerals and pictures
+gsap.from('.slot em',{yPercent:60,opacity:0,stagger:.08,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.slots',start:'top 85%'}});
+gsap.from('.pics img',{y:120,rotation:4,duration:1,stagger:.2,ease:'power3.out',scrollTrigger:{trigger:'.wall',start:'top 70%'}});
+document.getElementById('ticket').addEventListener('mouseenter',e=>gsap.to(e.currentTarget,{rotation:1,y:-6,duration:.3}));
+document.getElementById('ticket').addEventListener('mouseleave',e=>gsap.to(e.currentTarget,{rotation:-2.5,y:0,duration:.3}));
+})();
+</script>
+</body>
+</html>

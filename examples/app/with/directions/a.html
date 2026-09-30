@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390,initial-scale=1">
+<title>Crate A Dig</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#ECE9E1;--cobalt:#1E3BFF;--ink:#11131A;--mute:#6B6C72}
+*{box-sizing:border-box;margin:0}
+html,body{width:390px;height:844px;overflow:hidden;background:var(--bone);font-family:'Bricolage Grotesque',system-ui,sans-serif;color:var(--ink);-webkit-user-select:none;user-select:none}
+.phone{position:relative;width:390px;height:844px;overflow:hidden;touch-action:none}
+.sb{position:absolute;top:14px;left:28px;right:28px;display:flex;justify-content:space-between;font:500 15px 'DM Mono',monospace;z-index:50}
+.top{position:absolute;top:52px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center;z-index:50}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.04em}
+.q{display:flex;align-items:center;gap:8px;background:var(--cobalt);color:#fff;border-radius:99px;padding:8px 14px 8px 10px;font:500 12px 'DM Mono',monospace;letter-spacing:.02em}
+.q i{width:8px;height:8px;border-radius:50%;background:#C8FF3C;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(.55);opacity:.5}}
+.stage{position:absolute;left:0;right:0;top:0;height:700px;perspective:1000px;perspective-origin:50% 62%}
+.rec{position:absolute;left:25px;width:340px;height:340px;border-radius:6px;overflow:hidden;background:#222;transform-origin:50% 100%;will-change:transform;box-shadow:0 -6px 18px rgba(17,19,26,.18),0 22px 40px -14px rgba(17,19,26,.45)}
+.rec img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.tab{position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:flex-start;justify-content:space-between;padding:7px 12px;font:500 11px 'DM Mono',monospace;letter-spacing:.04em;color:#fff;background:linear-gradient(#0008,#0000)}
+.info{position:absolute;left:25px;right:25px;top:652px;z-index:40}
+.info h1{font-weight:800;font-size:30px;letter-spacing:-.035em;line-height:1}
+.info p{font:400 12px 'DM Mono',monospace;color:var(--mute);margin-top:7px;display:flex;justify-content:space-between;letter-spacing:.02em}
+.btns{position:absolute;left:25px;right:25px;top:736px;display:flex;gap:10px;z-index:40}
+.btns button{flex:1;height:48px;border-radius:99px;border:0;font:800 15px 'Bricolage Grotesque';letter-spacing:-.01em}
+.b1{background:var(--cobalt);color:#fff}.b2{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.rail{position:absolute;right:8px;top:150px;height:400px;width:3px;z-index:45}
+.rail b{position:absolute;left:0;width:3px;height:14px;border-radius:2px;background:var(--ink);opacity:.15}
+.hi{position:absolute;bottom:8px;left:125px;width:140px;height:5px;border-radius:3px;background:var(--ink);z-index:60}
+.hint{position:absolute;left:0;right:0;top:118px;text-align:center;font:400 11px 'DM Mono',monospace;color:var(--mute);letter-spacing:.06em;z-index:5;text-transform:uppercase}
+</style></head><body><div class="phone" id="ph">
+<div class="sb"><span>9:41</span><span>5G ▮▮▮</span></div>
+<div class="top"><span class="logo">crate</span><span class="q"><i></i>Booth · you're 4th · ~11 min</span></div>
+<div class="hint">New in this week · drag up to dig</div>
+<div class="stage" id="st"></div>
+<div class="rail" id="rail"></div>
+<div class="info"><h1 id="t"></h1><p><span id="a"></span><span id="pr"></span></p></div>
+<div class="btns"><button class="b1">Hear it in the booth</button><button class="b2">Hold</button></div>
+<div class="hi"></div></div>
+<script>
+const R=[['s3','Luma Brandt','Stairwell Sun','€27'],['s1','Ösel','Overprint','€24'],['s0','Nadia Keller','Deep End','€29'],['s2','Tobi Amadi Quartet','Peach Season','€31'],['s4','Kesh & Moon','Last Tram','€26'],['s5','Hollis Vane','Inflatable Hour','€28'],['s6','Sol Ribeiro','Snake Year','€30'],['s7','The Quiet Committee','Field Notes','€34']];
+const st=document.getElementById('st'),rail=document.getElementById('rail');
+const els=R.map(([im,ar,ti],i)=>{const d=document.createElement('div');d.className='rec';d.innerHTML=`<img src="img/${im}.webp" alt="${ti} by ${ar}"><div class="tab"><span>${ar.toUpperCase()}</span><span>${String(i+1).padStart(2,'0')}/${R.length}</span></div>`;st.appendChild(d);
+ const r=document.createElement('b');r.style.top=i*(400/R.length)+'px';rail.appendChild(r);return d});
+const YF=300;let p=0,v=0,target=0,drag=null,shown=-1;
+function render(){els.forEach((e,i)=>{const d=i-p;
+ if(d<-1.3||d>4.6){e.style.display='none';return}e.style.display='';
+ let y,ry=0,sc,op=1,br=1;
+ if(d>=0){y=YF-d*46;sc=1-d*.035;br=1-d*.04}
+ else{const t=-d;y=YF+t*150;ry=t*78;sc=1;op=1-Math.max(0,t-.35)*1.5;br=1}
+ e.style.transform=`translate3d(0,${y}px,${-Math.max(d,0)*30}px) rotateX(${ry}deg) scale(${sc})`;e.style.opacity=Math.max(op,0);e.style.zIndex=100-Math.round(d*10)+(d<0?200:0);e.style.filter=`brightness(${br})`;
+ e.querySelector('.tab').style.opacity=d>0.5?1:Math.max(0,d*2)});
+ const k=Math.max(0,Math.min(R.length-1,Math.round(p)));if(k!==shown){shown=k;t.textContent=R[k][2];a.textContent=R[k][1];pr.textContent=R[k][3]+' · 180g'}
+ [...rail.children].forEach((b,i)=>b.style.opacity=i===shown?1:.15)}
+function tick(){if(!drag){const f=(target-p)*.14;v=v*.6+f*.4;p+=f;if(Math.abs(target-p)<.0008)p=target}render();requestAnimationFrame(tick)}
+const ph=document.getElementById('ph');
+ph.addEventListener('pointerdown',e=>{drag={y:e.clientY,p0:p};ph.setPointerCapture(e.pointerId)});
+ph.addEventListener('pointermove',e=>{if(!drag)return;p=Math.max(-.2,Math.min(R.length-.8,drag.p0+(drag.y-e.clientY)/230));const dy=drag.y-e.clientY;target=Math.round(p)});
+ph.addEventListener('pointerup',e=>{if(!drag)return;const dy=drag.y-e.clientY;target=Math.max(0,Math.min(R.length-1,Math.abs(dy)>24?Math.round(drag.p0+Math.sign(dy)*Math.max(1,Math.round(Math.abs(dy)/230))):Math.round(p)));drag=null});
+ph.addEventListener('wheel',e=>{target=Math.max(0,Math.min(R.length-1,Math.round(target+Math.sign(e.deltaY))))},{passive:true});
+tick();
+</script></body></html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halden B - Waterline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ice:#e4f1f6;--cobalt:#1531ff;--ember:#ff6a1a;--deep:#0a1fc4;--wl:58%}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cobalt);color:#fff;font-family:'Hanken Grotesk',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden;background:var(--ice)}
+.layer{position:absolute;inset:0;overflow:hidden}
+.layer img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 58%}
+.big{position:absolute;left:0;right:0;top:var(--wl);transform:translateY(-50%);text-align:center;font-family:'Anybody',sans-serif;font-variation-settings:'wdth' 72;font-weight:900;font-size:30vw;line-height:.75;letter-spacing:.02em;white-space:nowrap;pointer-events:none;user-select:none}
+.above .big{color:var(--cobalt)}
+.under .big{color:#e4f1f6;mix-blend-mode:normal}
+.under{filter:url(#refract)}
+.under::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(120,160,255,.18),rgba(10,31,196,.55));mix-blend-mode:multiply}
+.line{position:absolute;left:0;right:0;height:2px;background:#fff;top:var(--wl);z-index:4;opacity:.9;box-shadow:0 0 18px #fff}
+header{position:absolute;z-index:6;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:22px 36px;font-weight:700;font-size:14px;letter-spacing:.02em;mix-blend-mode:normal;color:var(--cobalt)}
+header .logo{font-family:'Anybody';font-variation-settings:'wdth' 50;font-weight:900;font-size:26px;line-height:1;letter-spacing:0}
+header nav{display:flex;gap:30px;align-items:center}
+.cap{position:absolute;z-index:6;left:36px;top:calc(var(--wl) + 11vw);max-width:290px;font-size:15px;line-height:1.45;color:#fff}
+.cap b{display:block;font-family:'Anybody';font-stretch:75%;font-size:22px;margin-bottom:6px}
+.pill{position:fixed;z-index:30;left:50%;bottom:28px;transform:translateX(-50%);display:flex;gap:6px;align-items:center;background:var(--ember);color:#1a0800;border-radius:999px;padding:8px 8px 8px 22px;font-weight:700;font-size:15px;box-shadow:0 10px 40px rgba(10,31,196,.35)}
+.pill span{opacity:.75;font-weight:500}
+.pill i{font-style:normal;background:#1a0800;color:#fff;border-radius:999px;padding:10px 18px;margin-left:10px}
+.depth{position:absolute;z-index:6;right:36px;top:calc(var(--wl) + 4vw);font-size:12px;font-weight:700;text-align:right;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.lanes{background:linear-gradient(180deg,var(--cobalt),var(--deep));padding:16vh 36px 22vh;position:relative}
+.lanes h2{font-family:'Anybody';font-variation-settings:'wdth' 50;font-weight:900;font-size:clamp(60px,11vw,190px);line-height:.85;margin:0 0 6vh;letter-spacing:-.005em}
+.lane{display:grid;grid-template-columns:170px 1fr 170px;align-items:center;gap:26px;border-top:1px solid rgba(255,255,255,.35);padding:20px 0}
+.lane .t{font-family:'Anybody';font-stretch:75%;font-weight:800;font-size:54px;line-height:1}
+.lane .w{font-size:16px}
+.lane .w small{display:block;opacity:.75;font-size:13px;margin-top:2px}
+.lane .sl{display:flex;gap:6px;justify-content:flex-end}
+.lane .sl b{width:16px;height:16px;border-radius:50%;background:var(--ember)}
+.lane .sl b.x{background:transparent;border:2px solid rgba(255,255,255,.5)}
+.bub{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);pointer-events:none}
+@media(max-width:800px){.cap,.depth{display:none}header nav a:not(.cta){display:none}.lane{grid-template-columns:90px 1fr}.lane .sl{display:none}.lane .t{font-size:34px}.big{font-size:60vw}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="refract" x="0" y="0" width="100%" height="100%"><feTurbulence id="turb" type="fractalNoise" baseFrequency="0.006 0.035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="46" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<section class="hero" id="hero">
+  <div class="layer above" id="above"><img src="img/b_split.webp" alt="A black converted barge at dawn above the waterline, a swimmer under the surface"><div class="big" aria-hidden="true">HALDEN</div></div>
+  <div class="layer under" id="under"><img src="img/b_split.webp" alt=""><div class="big" aria-hidden="true">HALDEN</div></div>
+  <div class="line" id="line"></div>
+  <header><a class="logo" href="#">H.</a><nav><a href="#lanes">Sessions</a><a href="#">The barge</a><a href="#">Membership</a><a class="cta" href="#">Log in</a></nav></header>
+  <p class="cap"><b>Sauna and cold plunge, Copenhagen harbour.</b>A 1961 cargo barge at Berth 7. Members book 90 minutes of heat, then the harbour.</p>
+  <p class="depth">0 m &rarr; 4&deg;C</p>
+</section>
+
+<a class="pill" href="#lanes"><span>Next:</span> Today 18:30 &middot; 6 places <i>Book</i></a>
+
+<section class="lanes" id="lanes">
+  <h2>Below<br>the line.</h2>
+  <div class="lane"><span class="t">06:30</span><span class="w">Sauna, first light<small>82&deg;C &middot; 10 places</small></span><span class="sl"><b></b><b></b><b></b><b class="x"></b><b class="x"></b></span></div>
+  <div class="lane"><span class="t">08:00</span><span class="w">Plunge, harbour side<small>4&deg;C &middot; 8 places</small></span><span class="sl"><b></b><b></b><b></b><b></b><b class="x"></b></span></div>
+  <div class="lane"><span class="t">18:30</span><span class="w">Sauna, after work<small>85&deg;C &middot; 6 places</small></span><span class="sl"><b></b><b></b><b class="x"></b><b class="x"></b><b class="x"></b></span></div>
+  <div class="lane"><span class="t">21:00</span><span class="w">Plunge, lights out<small>4&deg;C &middot; 5 places</small></span><span class="sl"><b></b><b class="x"></b><b class="x"></b><b class="x"></b><b class="x"></b></span></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+try{ const lenis=new Lenis({lerp:.08}); lenis.on('scroll',ScrollTrigger.update); gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);}catch(e){}
+const hero=document.getElementById('hero'), above=document.getElementById('above'), under=document.getElementById('under'), turb=document.getElementById('turb');
+const st={wl:100, amp:0, t:0}; // wl in percent of viewport height; starts below the screen, the water rises on load
+function shape(){
+  const w=70, pts=[];
+  for(let i=0;i<=w;i++){ const x=i/w; const y=st.wl+Math.sin(x*14+st.t*1.6)*.55*st.amp+Math.sin(x*31-st.t*2.3)*.25*st.amp; pts.push([x*100,y]); }
+  const top=pts.map(p=>p[0]+'% '+p[1]+'%').join(','), bot=pts.slice().reverse().map(p=>p[0]+'% '+p[1]+'%').join(',');
+  above.style.clipPath='polygon(0 0,100% 0,'+top.split(',').reverse().join(',')+')';
+  above.style.clipPath='polygon(0% 0%,100% 0%,'+pts.slice().reverse().map(p=>p[0]+'% '+p[1]+'%').join(',')+')';
+  under.style.clipPath='polygon('+pts.map(p=>p[0]+'% '+p[1]+'%').join(',')+',100% 100%,0% 100%)';
+  hero.style.setProperty('--wl',st.wl+'%');
+}
+gsap.ticker.add((_,dt)=>{ st.t+=dt/1000; const f=turb.getAttribute('baseFrequency').split(' '); turb.setAttribute('baseFrequency',(0.006+Math.sin(st.t*.6)*.002)+' '+(0.035+Math.cos(st.t*.8)*.008)); shape(); });
+// load: water rises from the bottom edge to its line, letters are already there
+gsap.timeline().to(st,{wl:58,amp:1.2,duration:reduce?0.01:2.2,ease:'power3.out'})
+  .from('.big',{opacity:0,duration:1},0).from('header,.cap,.depth',{opacity:0,y:12,stagger:.1,duration:.8},1);
+// scroll: the waterline climbs past the top, the camera dives, the page turns cobalt
+const dive=gsap.timeline({scrollTrigger:{trigger:'#hero',start:'top top',end:'+=130%',pin:true,scrub:.6}});
+dive.to(st,{wl:-14,amp:2.6,ease:'none'},0)
+    .to('.layer img',{scale:1.35,ease:'none'},0)
+    .to('.cap',{opacity:0,duration:.25},0).to('.depth',{opacity:0,duration:.25},0)
+    .to(hero,{backgroundColor:'#1531ff',ease:'none'},.4);
+// lanes: rows slide in, slots pop, bubbles rise
+gsap.utils.toArray('.lane').forEach(l=>{gsap.from(l,{opacity:0,y:40,duration:.9,ease:'power3.out',scrollTrigger:{trigger:l,start:'top 90%'}});
+  gsap.from(l.querySelectorAll('.sl b'),{scale:0,stagger:.08,duration:.5,ease:'back.out(2)',scrollTrigger:{trigger:l,start:'top 88%'}});});
+const lanes=document.getElementById('lanes');
+for(let i=0;i<14;i++){const b=document.createElement('span');b.className='bub';const s=8+Math.random()*26;b.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*96+'%;top:'+(20+Math.random()*75)+'%';lanes.appendChild(b);
+  gsap.to(b,{y:-(200+Math.random()*400),opacity:0,duration:5+Math.random()*5,repeat:-1,ease:'none',delay:Math.random()*5});}
+</script>
+</body>
+</html>

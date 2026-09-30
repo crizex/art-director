@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crate — Mobile App</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4efe6;--ink:#1b1a17;--mut:#7a7467;--acc:#e8512a;--card:#fffaf0;--line:#ddd5c4}
+*{box-sizing:border-box;margin:0}
+body{background:#2a2825;font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;display:flex;gap:40px;justify-content:center;align-items:flex-start;padding:40px;flex-wrap:wrap}
+.phone{width:390px;height:844px;background:var(--bg);border-radius:44px;overflow:hidden;position:relative;box-shadow:0 0 0 10px #111,0 30px 60px #0008;display:flex;flex-direction:column}
+.status{height:47px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 30px 6px;font-weight:700;font-size:15px;flex:none}
+.scroll{flex:1;overflow:auto;padding:0 20px 16px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+h1{font-family:Fraunces,serif;font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+h2{font-family:Fraunces,serif;font-weight:600;font-size:20px}
+.top{display:flex;justify-content:space-between;align-items:center;margin:12px 0 18px}
+.logo{font-family:Fraunces,serif;font-weight:800;font-size:15px;background:var(--ink);color:var(--bg);padding:5px 10px;border-radius:99px}
+.mut{color:var(--mut);font-size:13px}
+.chips{display:flex;gap:8px;margin:14px 0 18px;overflow:hidden}
+.chip{padding:7px 14px;border:1.5px solid var(--ink);border-radius:99px;font-size:13px;font-weight:500;white-space:nowrap}
+.chip.on{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px}
+.cover{aspect-ratio:1;border-radius:6px;position:relative;overflow:hidden;box-shadow:0 6px 14px #0003}
+.cover i{position:absolute;display:block}
+.tag{position:absolute;top:8px;left:8px;background:var(--bg);font-size:10px;font-weight:700;padding:3px 7px;border-radius:99px;letter-spacing:.04em}
+.t{font-weight:700;font-size:14px;margin-top:8px;line-height:1.2}
+.row{display:flex;justify-content:space-between;align-items:center}
+.price{font-weight:700;font-size:14px}
+.tab{height:84px;flex:none;background:var(--ink);display:flex;justify-content:space-around;padding-top:12px;color:#9b9486;font-size:11px;font-weight:500}
+.tab div{text-align:center;width:70px}.tab div.on{color:var(--bg)}
+.tab b{display:block;font-size:20px;margin-bottom:2px;font-weight:400}
+.tab .on b{color:var(--acc)}
+/* queue */
+.big{background:var(--ink);color:var(--bg);border-radius:26px;padding:22px;position:relative;overflow:hidden;margin-top:6px}
+.big .n{font-family:Fraunces,serif;font-weight:800;font-size:110px;line-height:.9;color:var(--acc)}
+.disc{position:absolute;right:-50px;top:-30px;width:200px;height:200px;border-radius:50%;background:repeating-radial-gradient(#111 0 2px,#252320 3px 4px);animation:spin 6s linear infinite}
+.disc:after{content:"";position:absolute;inset:38%;border-radius:50%;background:var(--acc);box-shadow:0 0 0 6px #111}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bar{height:6px;background:#3a3732;border-radius:9px;margin:16px 0 8px;overflow:hidden}.bar i{display:block;height:100%;width:62%;background:var(--acc)}
+.q{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.q .cover{width:46px;flex:none;border-radius:4px}
+.q .p{width:26px;font-family:Fraunces,serif;font-weight:800;font-size:18px;color:var(--mut)}
+.q.me{background:var(--card);margin:0 -10px;padding:12px 10px;border-radius:14px;border:1.5px solid var(--acc)}.q.me .p{color:var(--acc)}
+.btn{display:block;width:100%;text-align:center;background:var(--acc);color:#fff;font-weight:700;padding:16px;border-radius:16px;font-size:16px}
+.btn.o{background:none;color:var(--ink);border:1.5px solid var(--ink)}
+/* detail */
+.hero{position:relative;height:330px;margin:0 -20px;background:#d9cdb4;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero .cover{width:230px;z-index:2;margin-right:70px}
+.hero .lp{position:absolute;width:220px;height:220px;border-radius:50%;left:50%;margin-left:-40px;background:repeating-radial-gradient(#0e0e0d 0 2px,#222 3px 4px);z-index:1}
+.hero .lp:after{content:"";position:absolute;inset:36%;border-radius:50%;background:var(--acc)}
+.back{position:absolute;top:10px;left:16px;z-index:3;width:38px;height:38px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:18px}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.meta div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
+.meta small{display:block;color:var(--mut);font-size:11px}.meta b{font-size:14px}
+.tr{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.tr span:first-child{color:var(--mut);width:18px}.tr em{margin-left:auto;color:var(--mut);font-style:normal}
+.cta{padding:12px 20px 0;display:flex;gap:10px;align-items:center;flex:none;background:var(--bg);border-top:1px solid var(--line)}
+.cta .btn{flex:1}
+.lbl{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--mut);margin:20px 0 6px}
+</style></head><body>
+<script>
+// cover art generator: [bg, shapeColor, pattern]
+const C={
+ a:['#1d3b8b','#f2c230','circle'],b:['#c9452b','#f4e6c8','stripes'],c:['#1c1c1c','#e8512a','sun'],
+ d:['#7fa38a','#1b2a22','split'],e:['#e9b8c4','#6b1f3a','circle'],f:['#f2c230','#1b1a17','stripes']};
+function cov(k,tag){const[b,s,p]=C[k];let i='';
+ if(p=='circle')i=`<i style="width:60%;height:60%;border-radius:50%;background:${s};left:20%;top:20%"></i>`;
+ if(p=='stripes')i=[0,1,2,3].map(n=>`<i style="left:0;right:0;height:10%;top:${15+n*20}%;background:${s}"></i>`).join('');
+ if(p=='sun')i=`<i style="width:70%;height:70%;border-radius:50%;background:${s};left:15%;bottom:-25%"></i><i style="left:0;right:0;top:0;height:30%;background:#0006"></i>`;
+ if(p=='split')i=`<i style="left:50%;right:0;top:0;bottom:0;background:${s}"></i><i style="width:30%;height:30%;border-radius:50%;background:${b};left:35%;top:35%"></i>`;
+ return`<div class="cover" style="background:${b}">${i}${tag?`<span class="tag">${tag}</span>`:''}</div>`}
+const tab=n=>`<div class="tab">${['Arrivals|◐','Queue|☰','Crate|▤','Me|●'].map((t,i)=>{const[a,b]=t.split('|');return`<div class="${i==n?'on':''}"><b>${b}</b>${a}</div>`}).join('')}</div>`;
+const st=`<div class="status"><span>9:41</span><span>●●● 5G ▮</span></div>`;
+const recs=[['Midnight Ferry','Oona Reyes','a','$28','NEW'],['Salt Flats','The Hollow Kites','b','$32','RESTOCK'],['Low Sun, High Rent','Marlo Finch','c','$26',''],['Sleepwalk Parade','Dub Cartel','d','$34','NEW'],['Petal Static','Yuki Arlen','e','$30','NEW'],['Brass Tacks','Tuesday Quartet','f','$24','USED']];
+const g=recs.map(r=>`<a>${cov(r[2],r[4])}<div class="t">${r[0]}</div><div class="row"><span class="mut">${r[1]}</span><span class="price">${r[3]}</span></div></a>`).join('');
+const qs=[['Nadia K.','Kind of Blue (Miles Davis)','f'],['Theo','Rumours (Fleetwood Mac)','a'],['You','Midnight Ferry (Oona Reyes)','a'],['Priya S.','Blonde (Frank Ocean)','c'],['Jonas','Disintegration (The Cure)','d']];
+document.write(`
+<div class="phone">${st}<div class="scroll">
+<div class="top"><span class="logo">CRATE</span><span class="mut">Brooklyn · Open till 9</span></div>
+<h1>New<br>arrivals</h1><div class="mut" style="margin-top:8px">38 records landed this week</div>
+<div class="chips"><span class="chip on">All</span><span class="chip">Jazz</span><span class="chip">Soul</span><span class="chip">Indie</span><span class="chip">Electronic</span></div>
+<div class="grid">${g}</div></div>${tab(0)}</div>
+
+<div class="phone">${st}<div class="scroll">
+<div class="top"><h1 style="font-size:28px">Listening booth</h1></div>
+<div class="big"><div class="disc"></div><div style="font-size:12px;letter-spacing:.12em;font-weight:700;opacity:.7">YOUR PLACE IN LINE</div>
+<div class="n">3</div><div style="margin-top:10px;font-size:17px;font-weight:700">About 14 min until Booth 2</div>
+<div class="bar"><i></i></div><div style="font-size:12px;opacity:.7">Now playing: Theo, side B · 6 min left</div></div>
+<div class="lbl">UP NEXT</div>
+${qs.map((q,i)=>`<div class="q ${q[0]=='You'?'me':''}"><span class="p">${i+1}</span>${cov(q[2])}<div><div style="font-weight:700;font-size:14px">${q[0]}</div><div class="mut">${q[1]}</div></div></div>`).join('')}
+<div style="height:16px"></div><a class="btn o">Leave the queue</a></div>${tab(1)}</div>
+
+<div class="phone">${st}<div class="scroll">
+<div class="hero"><span class="back">‹</span><div class="lp"></div>${cov('a')}</div>
+<div style="margin-top:18px" class="row"><div><h1 style="font-size:30px">Midnight Ferry</h1><div class="mut" style="font-size:15px;margin-top:4px">Oona Reyes · 2025 · Dream Pop</div></div></div>
+<div class="meta"><div><small>Pressing</small><b>180g LP</b></div><div><small>Sleeve</small><b>NM</b></div><div><small>In stock</small><b>2 copies</b></div></div>
+<p style="font-size:14px;line-height:1.5;color:#3d3a33">A hazy, tide-pulled second album recorded on a converted ferry. Gatefold, blue translucent vinyl, printed inner sleeves.</p>
+<div class="lbl">SIDE A</div>
+${[['Harbor Lights','3:48'],['Slow Water','4:12'],['Ferry Bell','2:55'],['Lowlands','5:20']].map((t,i)=>`<div class="tr"><span>${i+1}</span>${t[0]}<em>${t[1]}</em></div>`).join('')}
+</div><div class="cta"><a class="btn o" style="width:auto;padding:16px 18px">Hear it first</a><a class="btn">Buy · $28</a></div><div style="height:30px;background:var(--bg);flex:none"></div></div>
+`);
+</script>
+</body></html>

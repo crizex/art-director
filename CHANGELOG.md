@@ -2,6 +2,13 @@
 
 Every release is also published on the [releases page](https://github.com/crizex/art-director/releases).
 
+## 1.3.0
+
+- New `examples/` folder and a **With and without** section in the README: three fair tests
+  (website, app, dashboard), same brief, plain Claude Code against Art Director with an empty
+  taste profile. Each has the build, a screen capture and all three sketched directions.
+- README: unattended runs are described correctly (they stop at the directions, since 1.2.0).
+
 ## 1.2.2
 
 - Three new inspiration sources for single sections: footer.design (footers), cta.gallery

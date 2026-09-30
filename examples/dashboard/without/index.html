@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vault · Show Night Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--card:#181b24;--line:#262a36;--text:#e8eaf0;--mute:#8b91a1;--acc:#6c8cff;--ok:#3ecf8e;--warn:#f5a524;--bad:#f0525b}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font:14px/1.45 Inter,system-ui,sans-serif;padding:20px 28px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+h1{font-size:22px}h1 span{color:var(--mute);font-weight:400;margin-left:10px;font-size:15px}
+.clock{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.clock small{display:block;font-size:12px;color:var(--mute);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:14px;font-weight:600}
+.kpi{grid-column:span 3}
+.big{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums}
+.sub{color:var(--mute);font-size:13px;margin-top:2px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:4px;transition:width .6s}
+.doors{grid-column:span 7}.order{grid-column:span 5;grid-row:span 3}
+.zones{grid-column:span 7}.bars{grid-column:span 7}
+.up{color:var(--ok)}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th{color:var(--mute);font-weight:500;font-size:12px}td.r,th.r{text-align:right}
+.zone{display:grid;grid-template-columns:110px 1fr 120px;gap:12px;align-items:center;padding:7px 0}
+.zone .bar{margin:0}
+.tag{font-size:11px;padding:2px 8px;border-radius:99px;background:var(--line);color:var(--mute)}
+.tag.ok{background:#16382b;color:var(--ok)}.tag.warn{background:#3d2d0c;color:var(--warn)}.tag.bad{background:#3e1519;color:var(--bad)}
+.set{display:grid;grid-template-columns:64px 1fr auto;gap:12px;padding:14px 10px;border-bottom:1px solid var(--line);align-items:center}
+.set.now{background:#1e2440;border-radius:8px;border-color:transparent}
+.set.done{opacity:.45}
+.set b{display:block;font-size:15px}.set span{color:var(--mute);font-size:12px}
+.time{font-variant-numeric:tabular-nums;font-weight:600}
+.chart{display:flex;align-items:flex-end;gap:5px;height:90px;margin-top:16px}
+.chart div{flex:1;background:var(--acc);opacity:.75;border-radius:3px 3px 0 0;min-height:2px}
+.chart div:last-child{opacity:1}
+.cl{display:flex;justify-content:space-between;color:var(--mute);font-size:11px;margin-top:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Vault <span>Show night · Sold out · Cap. 1,500</span></h1>
+  <div class="clock"><span id="clock"></span><small>Live · updates every 3s</small></div>
+</header>
+
+<div class="grid">
+  <div class="card kpi"><h2>Inside now</h2><div class="big" id="inside"></div><div class="sub" id="insidePct"></div><div class="bar"><i id="insideBar"></i></div></div>
+  <div class="card kpi"><h2>Tickets scanned</h2><div class="big" id="scanned"></div><div class="sub" id="scanRate"></div><div class="bar"><i id="scanBar" style="background:var(--ok)"></i></div></div>
+  <div class="card kpi"><h2>Bar sales</h2><div class="big" id="sales"></div><div class="sub" id="perHead"></div></div>
+  <div class="card kpi"><h2>Next change</h2><div class="big" id="nextIn"></div><div class="sub" id="nextWhat"></div></div>
+
+  <div class="card doors"><h2>Door scans</h2>
+    <table><thead><tr><th>Door</th><th class="r">Scanned</th><th class="r">Per min</th><th class="r">Rejected</th><th>Status</th></tr></thead><tbody id="doors"></tbody></table>
+    <div class="chart" id="chart"></div><div class="cl"><span>18:00</span><span>Scans per 10 min, all doors</span><span>now</span></div>
+  </div>
+
+  <div class="card order"><h2>Running order</h2><div id="order"></div></div>
+
+  <div class="card zones"><h2>Zone occupancy</h2><div id="zones"></div></div>
+
+  <div class="card bars"><h2>Bar sales by location</h2>
+    <table><thead><tr><th>Bar</th><th class="r">Sales</th><th class="r">Orders</th><th class="r">Avg. wait</th><th>Top seller</th></tr></thead><tbody id="barRows"></tbody></table>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id), fmt=n=>Math.round(n).toLocaleString('en-GB'), money=n=>'£'+fmt(n);
+const doors=[{n:'Door A · Main',s:642,r:1.9,x:11},{n:'Door B · East',s:388,r:1.1,x:4},{n:'Door C · Guestlist',s:96,r:.3,x:1},{n:'Door D · Accessible',s:27,r:.1,x:0}];
+const zones=[{n:'Floor',c:900,v:688},{n:'Pit',c:150,v:142},{n:'Balcony',c:260,v:148},{n:'Mezzanine',c:120,v:66},{n:'VIP Lounge',c:70,v:41}];
+const bars=[{n:'Main Bar',s:4120,o:388,w:2.4,t:'Lager draught'},{n:'Floor Bar',s:2980,o:301,w:3.6,t:'Gin & tonic'},{n:'Balcony Bar',s:1675,o:154,w:1.8,t:'Red wine'},{n:'VIP Bar',s:1310,o:72,w:1.2,t:'Prosecco'}];
+const hist=[40,95,160,240,310,290];
+const set=[['19:00','Doors open','',0],['19:45','Halden Coast','Support · 30 min',30],['20:30','Mara Quill','Support · 40 min',40],['21:30','Changeover','',20],['21:50','The Night Engines','Headline · 90 min',90],['23:20','Curfew','House lights up',0]];
+const today=new Date(), at=t=>{const d=new Date(today);d.setHours(+t.slice(0,2),+t.slice(3),0,0);return d};
+// demo: clock pinned to 21:12 so the page always shows a live mid-show state, then ticks forward
+let sim=at('21:12').getTime();
+const cls=p=>p>=95?'bad':p>=80?'warn':'ok', lbl=p=>p>=95?'At limit':p>=80?'Busy':'Comfortable';
+
+function render(){
+  const now=new Date(sim);
+  $('clock').textContent=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const scanned=doors.reduce((a,d)=>a+d.s,0), inside=zones.reduce((a,z)=>a+z.v,0);
+  $('inside').textContent=fmt(inside);$('insidePct').textContent=(inside/15).toFixed(0)+'% of 1,500 capacity';$('insideBar').style.width=inside/15+'%';
+  $('scanned').textContent=fmt(scanned);$('scanRate').textContent=fmt(1500-scanned)+' of 1,500 tickets still to arrive';$('scanBar').style.width=scanned/15+'%';
+  const total=bars.reduce((a,b)=>a+b.s,0);
+  $('sales').textContent=money(total);$('perHead').textContent='£'+(total/inside).toFixed(2)+' per head inside';
+  const nx=set.findIndex(s=>at(s[0])>now), ci=nx<0?set.length-1:nx-1;
+  if(nx>=0){const m=Math.max(0,Math.round((at(set[nx][0])-now)/60000));$('nextIn').textContent=m+' min';$('nextWhat').textContent=set[nx][0]+' · '+set[nx][1];}
+  $('order').innerHTML=set.map((s,i)=>`<div class="set ${i==ci?'now':i<ci?'done':''}"><div class="time">${s[0]}</div><div><b>${s[1]}</b><span>${s[2]}</span></div>${i==ci?'<span class="tag ok">On stage</span>':i==nx?'<span class="tag">Next</span>':''}</div>`).join('');
+  $('doors').innerHTML=doors.map(d=>`<tr><td>${d.n}</td><td class="r">${fmt(d.s)}</td><td class="r">${d.r.toFixed(1)}</td><td class="r">${d.x}</td><td><span class="tag ${d.r>1.5?'warn':'ok'}">${d.r>1.5?'Queue building':'Flowing'}</span></td></tr>`).join('');
+  $('chart').innerHTML=hist.map(h=>`<div style="height:${h/3.2}%" title="${h} scans"></div>`).join('');
+  $('zones').innerHTML=zones.map(z=>{const p=z.v/z.c*100;return `<div class="zone"><b>${z.n}</b><div class="bar"><i style="width:${p}%;background:var(--${cls(p)=='ok'?'acc':cls(p)})"></i></div><div><span class="tag ${cls(p)}">${lbl(p)}</span> <span class="sub">${fmt(z.v)}/${fmt(z.c)}</span></div></div>`}).join('');
+  $('barRows').innerHTML=bars.map(b=>`<tr><td>${b.n}</td><td class="r">${money(b.s)}</td><td class="r">${fmt(b.o)}</td><td class="r">${b.w.toFixed(1)} min</td><td>${b.t}</td></tr>`).join('');
+}
+setInterval(()=>{
+  sim+=3000*20; // 1 real second of "show" = ~20s
+  doors.forEach(d=>{const add=Math.random()*d.r*3;d.s=Math.min(d.s+add,d.s+4);d.r=Math.max(.1,d.r+(Math.random()-.55)*.2)});
+  zones.forEach(z=>z.v=Math.max(0,Math.min(z.c,z.v+Math.round((Math.random()-.4)*4))));
+  bars.forEach(b=>{const o=Math.random()*3;b.o+=o;b.s+=o*(b.n=='VIP Bar'?18:8.5);b.w=Math.max(.8,b.w+(Math.random()-.5)*.3)});
+  hist[hist.length-1]=Math.max(0,hist[hist.length-1]+Math.round((Math.random()-.6)*12));
+  render();
+},3000);
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halden | Sauna and Cold Plunge on the Copenhagen Harbour</title>
+<meta name="description" content="Halden is a sauna and cold-plunge club on a converted barge in Copenhagen harbour. Book your session online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14232b;--deep:#0c1a21;--sea:#2f6f86;--ice:#dcecf1;--wood:#c98b4e;--cream:#f7f3ec}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:17px/1.6 Inter,sans-serif;color:var(--ink);background:var(--cream)}
+h1,h2,h3{font-family:Fraunces,serif;font-weight:400;line-height:1.1}
+a{color:inherit}
+.wrap{max-width:1100px;margin:auto;padding:0 24px}
+nav{position:fixed;inset:0 0 auto;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;color:#fff;background:linear-gradient(#0c1a21aa,transparent)}
+nav b{font:600 26px Fraunces,serif;letter-spacing:.08em}
+.btn{display:inline-block;padding:13px 26px;border-radius:99px;background:var(--wood);color:#1b1208;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-size:16px}
+.btn:hover{background:#dba468}
+.btn.o{background:transparent;border:1px solid #fff8}
+.btn.o{color:#fff}
+.hero{min-height:100vh;display:flex;align-items:flex-end;color:#fff;padding:0 0 80px;background:linear-gradient(#0c1a2155,#0c1a21ee),radial-gradient(ellipse at 70% 30%,#3a8098,#14323f 60%,#0c1a21)}
+.hero h1{font-size:clamp(44px,8vw,96px);max-width:12ch}
+.hero p{max-width:480px;margin:22px 0 32px;font-size:19px;color:#dcecf1}
+.hero .btn+.btn{margin-left:10px}
+section{padding:96px 0}
+h2{font-size:clamp(32px,4.5vw,52px);margin-bottom:20px}
+.lead{max-width:600px;opacity:.85}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:48px}
+.card{background:#fff;border-radius:16px;padding:30px;box-shadow:0 2px 14px #0001}
+.card h3{font-size:24px;margin-bottom:8px}
+.dark{background:var(--deep);color:#fff}
+.dark .card{background:#15303b;box-shadow:none}
+.price{font:600 34px Fraunces,serif;margin-top:14px;color:var(--wood)}
+.steps{counter-reset:s}
+.steps .card::before{counter-increment:s;content:"0" counter(s);font:32px Fraunces,serif;color:var(--sea)}
+table{width:100%;border-collapse:collapse;margin-top:32px}
+td,th{padding:14px 8px;border-bottom:1px solid #14232b22;text-align:left}
+form{display:grid;gap:14px;max-width:520px;margin-top:32px}
+label{display:grid;gap:5px;font-weight:500;font-size:15px}
+input,select{padding:13px;border-radius:10px;border:1px solid #14232b44;font:inherit;background:#fff}
+.slots{display:flex;flex-wrap:wrap;gap:8px}
+.slots label{display:block}
+.slots input{position:absolute;opacity:0}
+.slots span{display:block;padding:9px 16px;border:1px solid #14232b44;border-radius:99px;cursor:pointer;font-weight:400}
+.slots input:checked+span{background:var(--sea);color:#fff;border-color:var(--sea)}
+.slots input:focus-visible+span{outline:2px solid var(--wood);outline-offset:2px}
+#msg{font-weight:600;color:var(--sea)}
+details{border-bottom:1px solid #14232b22;padding:16px 0}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:8px;opacity:.85}
+footer{padding:40px 0;text-align:center;font-size:14px;opacity:.7}
+@media(max-width:600px){nav{padding:14px 18px}.hero .btn+.btn{margin:10px 0 0}}
+</style>
+</head>
+<body>
+<nav><b>HALDEN</b><a class="btn o" href="#book">Book a session</a></nav>
+
+<header class="hero"><div class="wrap">
+<h1>Heat. Harbour. Cold water.</h1>
+<p>A sauna and cold-plunge club on a converted barge in Copenhagen harbour. Members book sessions online and step straight from the steam into the sea.</p>
+<a class="btn" href="#book">Book a session</a><a class="btn o" href="#ritual">The ritual</a>
+</div></header>
+
+<section id="ritual"><div class="wrap">
+<h2>Three rounds, one barge</h2>
+<p class="lead">Halden was a cargo barge for forty years. Now it holds two wood-fired saunas, a plunge pool fed straight from the harbour, and a quiet deck for the time in between.</p>
+<div class="grid steps">
+<div class="card"><h3>Heat</h3><p>80 to 90 degrees in a cedar-lined sauna. Sit for 10 to 15 minutes, with a löyly pour every quarter hour.</p></div>
+<div class="card"><h3>Cold</h3><p>Plunge into 4 to 8 degree harbour water, by ladder or by the pool. One minute is plenty.</p></div>
+<div class="card"><h3>Rest</h3><p>Wrap up on the open deck with tea and watch the ferries. Then go again.</p></div>
+</div></div></section>
+
+<section class="dark"><div class="wrap">
+<h2>On board</h2>
+<div class="grid">
+<div class="card"><h3>Two wood-fired saunas</h3><p>Harbour Sauna for 12, Hold Sauna for 6 with a low, dark ceiling and less talk.</p></div>
+<div class="card"><h3>Cold plunge</h3><p>Open water off the stern, plus a heated-down pool kept at 6 degrees.</p></div>
+<div class="card"><h3>The deck</h3><p>Loungers, blankets, tea, and a view of the Opera and Nyhavn.</p></div>
+<div class="card"><h3>Changing rooms</h3><p>Lockers, showers, and towels and robes included with every session.</p></div>
+</div></div></section>
+
+<section id="membership"><div class="wrap">
+<h2>Membership</h2>
+<p class="lead">Members book up to 14 days ahead. Non-members can join the waiting list.</p>
+<div class="grid">
+<div class="card"><h3>Drop-in</h3><p>Single 90-minute session.</p><div class="price">DKK 240</div></div>
+<div class="card"><h3>Regular</h3><p>Four sessions a month, book any slot.</p><div class="price">DKK 690 / mo</div></div>
+<div class="card"><h3>Unlimited</h3><p>Any session, plus one guest a month.</p><div class="price">DKK 1,190 / mo</div></div>
+</div>
+<h3 style="margin-top:56px">This week</h3>
+<table><tr><th>Time</th><th>Session</th><th>Mon-Fri</th><th>Sat-Sun</th></tr>
+<tr><td>06:30</td><td>Early Dip</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>12:00</td><td>Lunch Steam</td><td>Yes</td><td>-</td></tr>
+<tr><td>17:30</td><td>After Work</td><td>Yes</td><td>-</td></tr>
+<tr><td>20:00</td><td>Evening Fire</td><td>Yes</td><td>Yes</td></tr></table>
+</div></section>
+
+<section id="book" style="background:var(--ice)"><div class="wrap">
+<h2>Book a session</h2>
+<p class="lead">Pick a day and a time. You get a confirmation by email.</p>
+<form id="f">
+<label>Name<input required name="n" autocomplete="name"></label>
+<label>Member email<input required type="email" name="e" autocomplete="email"></label>
+<label>Date<input required type="date" name="d" id="d"></label>
+<label>Guests<select name="g"><option>Just me</option><option>+1</option><option>+2</option></select></label>
+<fieldset class="slots" style="border:0;padding:0"><legend style="font-weight:500;font-size:15px;margin-bottom:6px">Time</legend>
+<label><input type="radio" name="t" value="06:30" required><span>06:30</span></label>
+<label><input type="radio" name="t" value="12:00"><span>12:00</span></label>
+<label><input type="radio" name="t" value="17:30"><span>17:30</span></label>
+<label><input type="radio" name="t" value="20:00"><span>20:00</span></label></fieldset>
+<button class="btn" style="justify-self:start">Reserve</button>
+<p id="msg" role="status"></p>
+</form></div></section>
+
+<section><div class="wrap">
+<h2>Good to know</h2>
+<details><summary>Where is the barge?</summary><p>Moored at the harbour in Copenhagen. The exact berth is in your booking confirmation.</p></details>
+<details><summary>What should I bring?</summary><p>Swimwear. We provide towels, robes and lockers.</p></details>
+<details><summary>Is cold plunging safe?</summary><p>For most healthy adults, yes. Speak to a doctor if you have heart or blood pressure conditions. Hosts are on deck at all times.</p></details>
+<details><summary>Can I cancel?</summary><p>Free up to 12 hours before your session.</p></details>
+</div></section>
+
+<footer>Halden, Copenhagen harbour. Members only, booking online.</footer>
+
+<script>
+// ponytail: client-only demo; wire form to a booking API
+const d=document.getElementById('d');d.min=new Date().toISOString().slice(0,10);
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);
+document.getElementById('msg').textContent=`Booked: ${f.get('d')} at ${f.get('t')}. See you on deck, ${f.get('n')}.`;e.target.reset()};
+</script>
+</body>
+</html>

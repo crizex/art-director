@@ -15,6 +15,7 @@
 <p align="center">
   <a href="#install">Install</a> ·
   <a href="#how-it-works">How it works</a> ·
+  <a href="#with-and-without">With and without</a> ·
   <a href="#your-taste-profile">Taste profile</a> ·
   <a href="#faq">FAQ</a>
 </p>
@@ -56,8 +57,39 @@ flowchart TB
 | **Verify** | Design critique, accessibility and contrast audit, desktop and phone screenshots, your standing rules. | "Done" means looked at, not just compiled. |
 | **Learn** | Your praise and criticism go into your taste profile, word for word. | Project five starts where project four ended. |
 
-It also works unattended. In scheduled or background runs it asks nothing, picks a direction itself
-and reports the two alternatives it rejected, so you can steer afterwards.
+It also works unattended. In scheduled or background runs it asks nothing, sketches the directions
+and stops there with a recommendation, so you pick before anything gets built.
+
+## With and without
+
+Same brief, same model. Left: plain Claude Code, no skills. Right: Art Director with a fresh, empty
+taste profile. It researched, sketched three directions, a human picked one, then it built.
+Each folder has the HTML to open, a short screen capture and all three sketched directions.
+
+**Website: Halden, a sauna club on a barge in Copenhagen harbour.**
+Picked: a mix of "thermal" and "waterline". Heat above the water, the plunge below, a temperature scale that runs with the scroll.
+
+<img src="examples/website/compare.jpg" alt="Halden landing page: a dark gradient with serif text next to a thermal-camera sauna photo with the wordmark broken at the waterline">
+
+[Capture](examples/website/with/index.mp4) · [Directions](examples/website/directions.jpg) · [Notes](examples/website/with/NOTES.md) · [HTML](examples/website/)
+
+**App: Crate, the phone companion of an independent record shop.**
+Picked: "Flood". Every record takes over the screen with its own colour and a giant cropped name.
+
+<img src="examples/app/compare.jpg" alt="Crate app: a cream card grid next to three phones, each flooded in the colour of one record sleeve">
+
+[Capture](examples/app/with/index.mp4) · [Directions](examples/app/directions.jpg) · [Notes](examples/app/with/NOTES.md) · [HTML](examples/app/)
+
+**Dashboard: Vault, show night at a 1,500-capacity venue, on the office wall.**
+Picked: "Live Gallery". The night as a TV control room: program monitor, zone cameras, tally lights, rundown, tickers.
+
+<img src="examples/dashboard/compare.jpg" alt="Vault dashboard: a dark admin panel with tiles next to a broadcast control room with a program monitor and lower thirds">
+
+[Capture](examples/dashboard/with/index.mp4) · [Directions](examples/dashboard/directions.jpg) · [Notes](examples/dashboard/with/NOTES.md) · [HTML](examples/dashboard/)
+
+Images in the right-hand builds are generated. The first round of these examples was built without
+images and without motion, and was rejected as "too generic". That is the skill working as intended:
+the reaction went into the taste profile and the next round started from it.
 
 ## Install
 

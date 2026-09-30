@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=390,initial-scale=1">
+<title>Crate B Flood</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@700;800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:390px;height:844px;overflow:hidden;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-user-select:none;user-select:none}
+.phone{position:relative;width:390px;height:844px;overflow:hidden;touch-action:none;background:var(--bg,#D6F24A);color:var(--fg,#14123A)}
+.sb{position:absolute;top:14px;left:28px;right:28px;display:flex;justify-content:space-between;font:600 15px 'Instrument Sans';z-index:50}
+.top{position:absolute;top:54px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:baseline;z-index:50;font:700 13px Syne;letter-spacing:.14em;text-transform:uppercase}
+.big{position:absolute;left:0;top:290px;white-space:nowrap;font:400 270px/1 Anton;letter-spacing:-.01em;color:var(--fg);will-change:transform;text-transform:uppercase;z-index:5;pointer-events:none}
+.big span{display:inline-block;margin-right:90px}
+.track{position:absolute;inset:0}
+.rec{position:absolute;left:0;top:150px;width:300px;height:300px;will-change:transform}
+.rec img{width:100%;height:100%;object-fit:cover;display:block;box-shadow:0 30px 50px -20px rgba(0,0,0,.55);pointer-events:none}
+.meta{position:absolute;left:24px;right:24px;top:588px;z-index:30}
+.meta .n{font:700 13px Syne;letter-spacing:.14em}
+.meta h1{font:800 29px/1 Syne;letter-spacing:-.04em;margin-top:8px;white-space:nowrap}
+.meta p{font:600 15px 'Instrument Sans';margin-top:8px;opacity:.85}
+.dock{position:absolute;left:16px;right:16px;bottom:30px;height:76px;border-radius:38px;background:var(--fg);color:var(--bg);display:flex;align-items:center;padding:0 12px 0 14px;gap:14px;z-index:40;box-shadow:0 14px 30px -10px rgba(0,0,0,.4)}
+.ring{width:48px;height:48px;flex:none;position:relative}
+.ring svg{width:48px;height:48px;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 18px Syne}
+.dock .tx{flex:1;line-height:1.15}.dock .tx b{display:block;font:700 15px 'Instrument Sans'}.dock .tx span{font-size:12.5px;opacity:.8}
+.dock button{border:0;height:52px;padding:0 20px;border-radius:26px;background:var(--bg);color:var(--fg);font:800 14px Syne}
+.hi{position:absolute;bottom:8px;left:125px;width:140px;height:5px;border-radius:3px;background:var(--fg);opacity:.6;z-index:60}
+.price{position:absolute;right:24px;top:632px;z-index:30;font:800 22px Syne}
+</style></head><body><div class="phone" id="ph">
+<div class="sb"><span>9:41</span><span>5G ▮▮▮</span></div>
+<div class="top"><span>Crate</span><span id="cnt">01 / 08</span></div>
+<div class="big" id="big"></div>
+<div class="track" id="tr"></div>
+<div class="meta"><div class="n" id="n">NEW IN THIS WEEK</div><h1 id="t"></h1><p id="a"></p></div>
+<div class="price" id="pr"></div>
+<div class="dock"><div class="ring"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="4"/><circle id="arc" cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="88"/></svg><b>4</b></div><div class="tx"><b>4th in line, booth</b><span>about 11 min</span></div><button>Hold it</button></div>
+<div class="hi"></div></div>
+<script>
+// [img, artist, title, price, bg, fg, tone]
+const R=[['s0','Nadia Keller','Deep End','€29','#D6F24A','#14123A','#C6E23A'],['s1','Ösel','Overprint','€24','#FF4B2B','#FFF3E4','#E83F22'],['s2','Tobi Amadi Quartet','Peach Season','€31','#1E3BFF','#FFE9D6','#3551FF'],['s3','Luma Brandt','Stairwell Sun','€27','#F4C90D','#1A1405','#E4BA06'],['s4','Kesh & Moon','Last Tram','€26','#B5158F','#FFE6FA','#C42AA0'],['s5','Hollis Vane','Inflatable Hour','€28','#F7C6D6','#3A1530','#EFB4C6'],['s6','Sol Ribeiro','Snake Year','€30','#2B1B8C','#FFD9A0','#3A28A4'],['s7','The Quiet Committee','Field Notes','€34','#E5E3DE','#16161A','#D6D3CC']];
+const tr=document.getElementById('tr'),ph=document.getElementById('ph'),big=document.getElementById('big');
+const els=R.map(([im,ar,ti])=>{const d=document.createElement('div');d.className='rec';d.innerHTML=`<img src="img/${im}.webp" alt="${ti} by ${ar}">`;tr.appendChild(d);return d});
+big.innerHTML=R.map(r=>`<span>${r[1].split(' ')[0]}</span>`).join('');
+const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const mix=(a,b,t)=>'rgb('+a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join()+')';
+const STEP=340;let p=0,target=0,drag=null,shown=-1;
+function render(){
+ const i0=Math.max(0,Math.min(R.length-2,Math.floor(p))),t=Math.max(0,Math.min(1,p-i0)),A=R[i0],B=R[Math.min(i0+1,R.length-1)];
+ const s=ph.style;s.setProperty('--bg',mix(hx(A[4]),hx(B[4]),t));s.setProperty('--fg',mix(hx(A[5]),hx(B[5]),t));s.setProperty('--tone',mix(hx(A[6]),hx(B[6]),t));
+ els.forEach((e,i)=>{const d=i-p;if(Math.abs(d)>2){e.style.display='none';return}e.style.display='';
+  const x=34+d*STEP,r=d*5,sc=1-Math.min(Math.abs(d),1)*.14,y=Math.abs(d)*26;
+  e.style.transform=`translate3d(${x}px,${y}px,0) rotate(${r}deg) scale(${sc})`;e.style.zIndex=10-Math.round(Math.abs(d)*3)});
+ big.style.transform=`translate3d(${-p*300+10}px,0,0)`;
+ const k=Math.max(0,Math.min(R.length-1,Math.round(p)));
+ if(k!==shown){shown=k;t_.textContent=R[k][2];a_.textContent=R[k][1];pr_.textContent=R[k][3];cnt.textContent=String(k+1).padStart(2,'0')+' / 08'}
+ const off=Math.abs(p-k);document.getElementById('t').style.opacity=1-off*1.6;document.getElementById('a').style.opacity=1-off*1.6;document.getElementById('pr').style.opacity=1-off*1.6}
+const t_=document.getElementById('t'),a_=document.getElementById('a'),pr_=document.getElementById('pr'),cnt=document.getElementById('cnt');
+function tick(){if(!drag){p+=(target-p)*.13;if(Math.abs(target-p)<.0006)p=target}render();requestAnimationFrame(tick)}
+ph.addEventListener('pointerdown',e=>{drag={x:e.clientX,p0:p};ph.setPointerCapture(e.pointerId)});
+ph.addEventListener('pointermove',e=>{if(!drag)return;p=Math.max(-.25,Math.min(R.length-.75,drag.p0+(drag.x-e.clientX)/STEP));});
+ph.addEventListener('pointerup',e=>{if(!drag)return;const dx=drag.x-e.clientX;target=Math.max(0,Math.min(R.length-1,Math.abs(dx)>30?Math.round(drag.p0+Math.sign(dx)):Math.round(p)));drag=null});
+ph.addEventListener('wheel',e=>{target=Math.max(0,Math.min(R.length-1,Math.round(target+Math.sign(e.deltaX||e.deltaY))))},{passive:true});
+tick();
+</script></body></html>

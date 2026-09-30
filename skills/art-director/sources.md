@@ -18,6 +18,7 @@ Add your own in `~/.claude/art-director/sources.md`.
 | https://httpster.net | opinionated, often loud sites | ok |
 | https://recent.design | new sites | ok |
 | https://supahero.io | hero sections only | ok |
+| https://www.footer.design | footers only, filter by style (typographic, unusual layout, WebGL) | ok |
 | https://mubi.com, https://a24films.com | real film brands, worth viewing directly for anything cinematic | ok in a real browser |
 | https://cosmos.so | moodboards, good for mood beyond the web | ok |
 | https://savee.it | moodboards, graphic design and photography | Cloudflare check in headless browsers |
@@ -33,6 +34,7 @@ Add your own in `~/.claude/art-director/sources.md`.
 | https://refero.design | real product screens, search by screen type | few results without an account; use the search field on the front page, `?q=` is ignored |
 | https://www.saasframe.io | SaaS screens by type | ok |
 | https://saaspo.com | SaaS websites | ok, sometimes Cloudflare |
+| https://pricingpages.design | pricing pages only | ok |
 | https://screenlane.com | app screens and flows | ok |
 | https://uisources.com | app interactions | ok |
 | https://www.pttrns.com | iOS patterns | ok |
@@ -53,6 +55,7 @@ Add your own in `~/.claude/art-director/sources.md`.
 | https://21st.dev | buttons, cards, heroes, shaders | ok |
 | https://uiverse.io | buttons, loaders, toggles as plain HTML/CSS | ok |
 | https://navbar.gallery | navigation | ok |
+| https://www.cta.gallery | calls to action by type (button, form, newsletter, pricing, modal) | ok |
 | https://www.checklist.design | what a given screen type needs | JS |
 
 ## Lessons

@@ -2,6 +2,11 @@
 
 Every release is also published on the [releases page](https://github.com/crizex/art-director/releases).
 
+## 1.2.2
+
+- Three new inspiration sources for single sections: footer.design (footers), cta.gallery
+  (calls to action) and pricingpages.design (pricing pages).
+
 ## 1.2.1
 
 - References from links to animated pages are recorded as video and a contact sheet of frames,

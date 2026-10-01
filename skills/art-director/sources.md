@@ -3,6 +3,7 @@
 "JS" means the page ships an empty shell to plain HTTP clients, so view it in a real browser.
 Remove sources that stay blocked instead of failing on them every time.
 Add your own in `~/.claude/art-director/sources.md`.
+`node scripts/check-sources.mjs <files>` flags dead, moved and blocked links; run it during the review in step 6.
 
 ## Websites and landing pages
 
@@ -20,8 +21,9 @@ Add your own in `~/.claude/art-director/sources.md`.
 | https://supahero.io | hero sections only | ok |
 | https://www.footer.design | footers only, filter by style (typographic, unusual layout, WebGL) | ok |
 | https://mubi.com, https://a24films.com | real film brands, worth viewing directly for anything cinematic | ok in a real browser |
+| https://manus.im | real AI product brand, calm and warm instead of the usual dark tech look, worth viewing directly for AI tools | ok |
 | https://cosmos.so | moodboards, good for mood beyond the web | ok |
-| https://savee.it | moodboards, graphic design and photography | Cloudflare check in headless browsers |
+| https://savee.com | moodboards, graphic design and photography | Cloudflare check in headless browsers |
 | https://www.darkmodedesign.com | dark sites only | loads empty in headless browsers |
 | https://www.siteinspire.com | curated, filter by style | often rate limited |
 | https://www.lapa.ninja | landing pages | blocks automated access (403) |
@@ -35,8 +37,8 @@ Add your own in `~/.claude/art-director/sources.md`.
 | https://www.saasframe.io | SaaS screens by type | ok |
 | https://saaspo.com | SaaS websites | ok, sometimes Cloudflare |
 | https://pricingpages.design | pricing pages only | ok |
-| https://screenlane.com | app screens and flows | ok |
-| https://uisources.com | app interactions | ok |
+| https://pageflows.com | app screens and whole user flows (formerly screenlane) | ok |
+| https://screensdesign.com | app screens and interactions (formerly uisources) | ok |
 | https://www.pttrns.com | iOS patterns | ok |
 | https://collectui.com | single UI challenges by category | ok |
 | https://www.uidesigndaily.com | single screens | ok |
@@ -46,7 +48,10 @@ Add your own in `~/.claude/art-director/sources.md`.
 | Source | Strength | Access |
 |---|---|---|
 | https://mobbin.com | filters "Dashboard", "Analytics" | account |
-| https://bentogrids.com | bento layouts | ok |
+| https://bentogrids.com | bento layouts | JS |
+| https://bklit.com | chart and data visualization components on shadcn/ui | ok |
+| https://www.tremor.so | charts, KPI cards and dashboard blocks | ok |
+| https://evilcharts.com | animated charts (Recharts, ECharts) | crashes headless Chromium, view in a real browser |
 
 ## Components and micro-interactions
 
@@ -54,6 +59,8 @@ Add your own in `~/.claude/art-director/sources.md`.
 |---|---|---|
 | https://21st.dev | buttons, cards, heroes, shaders | ok |
 | https://uiverse.io | buttons, loaders, toggles as plain HTML/CSS | ok |
+| https://ui.watermelon.sh | React components, blocks and whole dashboards | JS |
+| https://motion-primitives.com | animated components (text effects, transitions, dialogs) | ok |
 | https://navbar.gallery | navigation | ok |
 | https://www.cta.gallery | calls to action by type (button, form, newsletter, pricing, modal) | ok |
 | https://www.checklist.design | what a given screen type needs | JS |

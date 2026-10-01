@@ -2,6 +2,30 @@
 
 Every release is also published on the [releases page](https://github.com/crizex/art-director/releases).
 
+## 1.4.0
+
+- Directions are sketched at the level of the final result: real or generated imagery instead of
+  grey boxes and flat SVG, and each direction's core motion shown as a clip or contact sheet.
+- Motion is dosed by the brand's register: lots for consumer brands, one moving element for
+  professional services. Warm cream with a serif and a terracotta or oxblood accent joins the list
+  of default AI looks to avoid.
+- Products with several screens get a screen list to approve alongside the directions, including the
+  dull parts (settings, roles, admin, empty states), so missing screens do not cost extra rounds.
+- New section on existing products: siblings of a product follow its look, a single component needs
+  no direction round, and patterns from the taste profile are no default look for unrelated products.
+- Every new screen gets fresh research, small ones too.
+- New `scripts/record.mjs`: records a page or a local sketch as MP4 plus a 4x4 contact sheet and
+  names the fonts and motion libraries it finds. Avoids the usual crashes (no single-process mode,
+  no recording into a full /tmp).
+- Before the user sees the directions, each sketch is placed next to the strongest reference find and
+  run through the slop detector, so a generic first round gets caught early.
+- Every 10 projects, a review in `log.md`: rounds until approval, why first rounds failed, which
+  sources actually fed approved work.
+- New `scripts/check-sources.mjs`: flags dead, moved and blocked sources. First run updated the list:
+  screenlane is now pageflows.com, uisources is now screensdesign.com, savee moved to savee.com.
+- New inspiration sources: manus.im (a calm AI product brand), Bklit UI (bklit.com), Tremor and Evil Charts
+  for dashboards and charts, Watermelon UI and Motion Primitives for components.
+
 ## 1.3.0
 
 - New `examples/` folder and a **With and without** section in the README: three fair tests

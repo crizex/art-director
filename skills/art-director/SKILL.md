@@ -41,7 +41,8 @@ copy it to `references/YYYY-MM-DD-keyword.ext`, add a row to `references/index.m
 the still frame loses the motion: ask once what moves, and note the answer with its proper term.
 When the user sends links to animated pages, a screenshot is not enough. Record the page loading and
 scrolling slowly (for example Playwright's `recordVideo`), keep the video, and turn it into a contact
-sheet of 12 to 16 frames (for example `ffmpeg -vf "fps=16/<duration>,tile=4x4"`) that you actually look at.
+sheet of 12 to 16 frames that you actually look at. `scripts/record.mjs` next to this skill does both
+and names the fonts and motion libraries it finds (`node scripts/record.mjs <url> <out-prefix>`).
 Note what moves, when, and with which technique (GSAP, Lenis, Three.js, Spline, Framer, canvas).
 
 ## 1. Intake: every question at once
@@ -59,7 +60,22 @@ Read `taste.md` and `references/index.md` first. Then **one** round of questions
 
 The answers become the **brief in three sentences**, shown together with the directions in step 3.
 
+### Existing products and small changes
+
+Ask whether the thing already has an approved look: a live website, a sibling app, a design system.
+- **Sibling of an existing product** (the app for a website, the phone version of a desktop app):
+  one direction follows the existing world closely. Products of one family share their look;
+  consistency usually beats novelty here.
+- **One component inside an existing design** (a banner, a dialog, a new card): no direction round.
+  Build it in the existing system, show it, adjust.
+- **A new product**: the patterns in `taste.md` came from other products. They are no default look.
+  Reusing the look of one product for an unrelated one (the dark dashboard style for a playful
+  consumer app) gets rejected.
+
 ## 2. Inspiration: rotate, do not repeat
+
+Every new screen or product gets fresh research, small ones too. Only follow-up rounds on a chosen
+direction may reuse the sources of the round before.
 
 1. Read `log.md`: which sources did the last 3 projects use?
 2. Pick **3 to 4 sources** from `sources.md`:
@@ -88,12 +104,35 @@ screen, screenshotted, or rendered side by side. For each direction:
 - fonts and the 3 main colors,
 - its **floor plan** in one line (where navigation, content and actions sit).
 
+Sketch at the level of the final result, not as a wireframe. Directions with flat shapes, no images
+and no motion read as generic and get rejected, even with a clever floor plan:
+- **real imagery**: photos, products, people or textures, generated with an image model when one
+  is available, never grey boxes or flat SVG stand-ins,
+- **the core motion** of each direction (the intro, the hero effect, the one transition that carries it),
+  shown as a short clip or contact sheet next to the still (`scripts/record.mjs <sketch.html> <out> --still 6`).
+  Dose it by the brand's register: consumer and lifestyle brands can carry a lot of motion, while
+  professional services (security, finance, law, health) want one moving element and everything
+  else still. Too much movement makes a serious company look unserious.
+
 A motif alone is not a direction. Header, tabs, table and cards with a motif painted on still read as
 "generic AI". At least one direction needs a floor plan that differs from the default layout, and each
 floor plan must match the sketch it came from.
 
 If `taste.md` has a "Patterns" section, let one direction follow it and at least one deliberately
 break it, so a known preference does not become the next monoculture.
+
+For a product or prototype with more than one screen, add a **screen list**: every screen and state
+it needs. Include everything the website or brief promises, plus the dull parts of the category
+(settings, users and roles, admin, empty and error states, onboarding). `checklist.design` lists what
+common screen types need. Missing screens found after the build cost a full round each.
+
+Before showing anything, two checks on the sketches themselves:
+- **Measure against the bar.** Put the strongest find from step 2 next to each direction, at the same
+  size. If a sketch looks plainly weaker than the reference beside it, redo it before the user sees it.
+  Show the pairs to the user too: it tells them where each idea came from and keeps you honest.
+- **Run the slop detector early.** If a design review skill with a detector is installed, run it on
+  every sketch now, not only on the final build, and fix what it finds. A generic first round costs a
+  whole round.
 
 Add the three-sentence brief from step 1. The user picks, mixing is welcome
 ("colors from A, layout from B"). **No production code before the pick.**
@@ -106,6 +145,7 @@ direction and write it down. Finish with a short list: **"Assumptions I made"**.
 Keep the floor plan of the chosen sketch. The usual drift during a full build is back to the default
 layout (top bar, text tabs, a title, table sections) with the direction's motif left as decoration.
 Compare the first full screen with the sketch before building the rest.
+Build every screen on the approved screen list.
 
 **Illustrations, mascots, logos with a figure:** use an image generation model if one is available.
 Hand-drawn SVG figures rarely hold up. Show 3 to 6 generated concepts, then refine the chosen one at
@@ -115,7 +155,8 @@ high resolution. Check that the scene makes sense: objects in the right place, a
 Standing rules (extend them in the user's `taste.md`):
 - small text on dark backgrounds at roughly 6:1 contrast or better, measured, never eyeballed,
 - works at 400 px width,
-- none of the default AI patterns: purple gradients, big-number stat tiles as the hero,
+- none of the default AI patterns: purple gradients, warm cream with a light serif display and a
+  terracotta or oxblood accent, big-number stat tiles as the hero,
   sidebar plus card feed, `[ 01 ]` style numbering, an eyebrow label above every heading,
   the standard SaaS sequence of split sections, three-column features, check lists, pricing cards,
   FAQ accordion and a giant closing CTA.
@@ -136,6 +177,11 @@ Standing rules (extend them in the user's `taste.md`):
 - When the user praises or criticizes the result, write their words **verbatim** into `taste.md`
   under "Liked" or "Disliked", with date and a link to the draft. Add a "so what" in brackets when
   the lesson is not obvious from the quote. Never put your own guesses in `taste.md`.
+- **Every 10 rows in `log.md`, review.** Read the rows since the last review together with `taste.md`
+  and write a short "Review" block at the end of `log.md`: average rounds until approval, why first
+  rounds failed (quoted reasons, grouped), which sources fed the approved directions and which never
+  did. Run `scripts/check-sources.mjs` on the bundled and the user's `sources.md` at the same time and
+  update the access notes. Change your own approach from what the review shows, not from one project.
 - A rule the user states ("never X", "always Y") goes under "Standing rules".
 - Once "Liked" has 5 or more rows, keep a short **"Patterns"** section in `taste.md`: what the liked
   results share (background, accent, type, motion), each point backed by the rows it comes from.

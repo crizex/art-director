@@ -52,7 +52,7 @@ flowchart TB
 |---|---|---|
 | **Intake** | One round of questions: audience, mood, light or dark, brand colors, the one memorable element, device, taboos. | You answer once. No "quick question" in the middle of the build. |
 | **Research** | 3 to 4 inspiration sources, rotated against the log of past projects. Real products next to your category, not just gallery front pages. | The single biggest cause of samey output is using the same two favorite galleries. |
-| **Directions** | 2 to 3 clearly different directions, each rendered as an actual image, with sources, fonts and colors named. | You react to pictures, not to adjectives. "Colors from A, layout from B" is a valid answer. |
+| **Directions** | 2 to 3 clearly different directions, each rendered as an actual image with real imagery and its core motion, with sources, fonts, colors and floor plan named. A product gets a screen list to approve too. | You react to pictures, not to adjectives. "Colors from A, layout from B" is a valid answer. |
 | **Build** | The chosen direction gets built end to end. Open questions are decided in its spirit and listed at the end. | Flow for the agent, no babysitting for you. |
 | **Verify** | Design critique, accessibility and contrast audit, desktop and phone screenshots, your standing rules. | "Done" means looked at, not just compiled. |
 | **Learn** | Your praise and criticism go into your taste profile, word for word. | Project five starts where project four ended. |
@@ -156,18 +156,23 @@ Art Director is the conductor. It uses these when they are installed and skips t
 - **[ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)** for industry palettes, font pairings and anti-patterns (treated as the default to beat).
 - **[impeccable](https://github.com/pbakaus/impeccable)** or **hallmark** for AI-slop critique and detection.
 - **[web-design-guidelines](https://github.com/vercel-labs/agent-skills)** for the accessibility and performance audit.
-- **Playwright** or any real browser, so JavaScript-heavy galleries can actually be seen.
+- **Playwright** or any real browser, so JavaScript-heavy galleries can actually be seen. With Playwright and ffmpeg, `scripts/record.mjs` records animated references and sketches as video plus a contact sheet.
+- **An image model** (any CLI that writes a PNG) for photos, products and mascots in the sketches.
 
 ## What is in the box
 
 ```
 skills/art-director/
 ├── SKILL.md          the process
-├── sources.md        25+ curated inspiration sources by category, with access notes
+├── sources.md        30+ curated inspiration sources by category, with access notes
+├── scripts/
+│   ├── record.mjs         records a page as video plus contact sheet (optional, needs Playwright and ffmpeg)
+│   └── check-sources.mjs  flags dead, moved and blocked inspiration sources (Node 18+)
 └── templates/        starting files for your taste profile
 ```
 
-No scripts, no network calls of its own, no telemetry. It is instructions and a source list.
+No telemetry, no network calls beyond the pages you ask it to look at. It is instructions, a source list
+and two optional helper scripts.
 
 ## FAQ
 
